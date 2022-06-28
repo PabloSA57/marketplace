@@ -27,8 +27,19 @@ server.use((req, res, next) => {
 //static files
 server.use(express.static(path.join(__dirname, 'upload')))
 
+const UserRoute = require('./routes/users');
+const ProductRoute = require('./routes/product');
+const StoreRoute = require('./routes/store');
+const ProductStoreRoute = require('./routes/product_store');
+const CategoryRoute = require('./routes/category');
+const CartRoute = require('./routes/cart');
 //Routes
-
+server.use('/user', UserRoute);
+server.use('/product', ProductRoute);
+server.use('/store', StoreRoute);
+server.use('/product-store', ProductStoreRoute);
+server.use('/category', CategoryRoute);
+server.use('/cart', CartRoute);
 
 
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
