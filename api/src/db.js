@@ -29,6 +29,36 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
+const {User, Cart, Product, Store, Productstore, Category} = sequelize.models;
+
+//Asocia una tienda con un usuario
+User.hasOne(Store);
+Store.belongsTo(User);
+
+//Asocia un producto con la Tienda
+Store.belongsToMany(Product, {through: Productstore});
+Product.belongsToMany(Store, {through: Productstore});
+Store.hasMany(Productstore);
+Productstore.belongsTo(Store);
+Product.hasMany(Productstore);
+Productstore.belongsTo(Product);
+
+//Asocia una categoria a un producto
+Category.hasMany(Product);
+Product.belongsTo(Category);
+
+
+//Asocia un token a un usuario
+//Usuarios.hasOne(Tokens);
+//Tokens.belongsTo(Usuarios);
+
+//Cart
+Productstore.belongsToMany(User, {through: Cart});
+User.belongsToMany(Productstore, {through: Cart});
+Productstore.hasMany(Cart);
+Cart.belongsTo(Productstore);
+User.hasMany(Cart);
+Cart.belongsTo(Productstore);
 
 module.exports = {
     ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
