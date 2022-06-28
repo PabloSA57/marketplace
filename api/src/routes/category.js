@@ -3,6 +3,7 @@ const {Router} = require ("express");
 
 const router = Router();
 
-router.post('/addcategory');
+const {AddCategory} = require('../controllers/category.controller')
+router.post('/addcategory', AddCategory);
 
 module.exports = router;
