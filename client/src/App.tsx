@@ -1,25 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { LoginPage } from './Pages/LoginPage';
+import { RegisterPage } from './Pages/RegisterPage';
+import RoutePrivateClient from './Routes/RouteClient';
+import RouteCommerce from './Routes/RouteCommerce';
+import RoutePrivate from './Routes/RoutePrivate';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes> 
+          
+      <Route path='/login' element={<LoginPage />}/>
+      <Route path='/register' element={<RegisterPage />} />
+        <Route path='commerce/*' element={
+          <RoutePrivate>
+            <RouteCommerce type="Comercio"/>
+          </RoutePrivate>
+        }/>
+        
+        <Route path='/inicio/*' element={
+          <RoutePrivate>
+            <RoutePrivateClient type='Comercio'/>
+          </RoutePrivate>
+        }/>
+        
+      
+    </Routes>
   );
 }
 
