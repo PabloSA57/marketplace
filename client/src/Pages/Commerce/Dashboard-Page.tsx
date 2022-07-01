@@ -1,8 +1,9 @@
+import Dashboard from "../../Component/Commerce/Dashboard/Dashboard";
 
 
 export const DashboardPage= () => {
     return (
-        <div>Dashboard-Page</div>
+        <div><Dashboard /></div>
     )
 }
 
