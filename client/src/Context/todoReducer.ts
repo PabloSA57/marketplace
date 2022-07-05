@@ -1,15 +1,20 @@
 import { State } from '../Interface/State';
-import { Product, Commerce, ProductCart } from '../Interface/Commerce';
+import { Product, Commerce, ProductInfo } from '../Interface/Commerce';
 
 type TodoAction = 
-    |{type: 'getProductos', payload: Product[]}
+    |{type: 'getProductos', payload: ProductInfo[]}
     |{type: 'filterTipo', payload: string}
     |{type: 'getComercios', payload: Commerce[]}
     |{type: 'changePhone', payload: boolean}
     |{type: 'token', payload: string | null}
     |{type: 'type', payload: string | null}
-    |{type: 'getProductsComercio', payload: Product[]}
-    |{type: 'addProductsCart', payload: ProductCart[]}
+    |{type: 'getProductsComercio', payload: ProductInfo[]}
+    |{type: 'addProductsCart', payload: ProductInfo[]}
+    |{type: 'addProductsCartCopy', payload: ProductInfo[]}
+    |{type: 'addProductCart', payload: ProductInfo}
+    |{type: 'updateProductCart', payload: {id:number, newprecio: number}}
+    |{type: 'deleteProductCart', payload: number}
+
     |{type: 'updateProducto', payload: {id: number, precio: string | undefined, stock: string | null | undefined}}
     |{type: 'deleteProduct', payload: number}
     |{type: 'selectStore', payload: number}
@@ -26,7 +31,7 @@ export const todoReducer = (state: State, action: TodoAction): State => {
         case "filterTipo":
             const allproducts = state.allproducts;
             const tipo = action.payload;
-            const filterTipo = tipo === "All"  ? allproducts : allproducts.filter(e => e.categoria === tipo);
+            const filterTipo = tipo === "All"  ? allproducts : allproducts.filter(e => e.product.categoria === tipo);
             return{
                 ...state,
                 products: filterTipo
@@ -59,11 +64,11 @@ export const todoReducer = (state: State, action: TodoAction): State => {
         case "updateProducto":
             const products = state.products;
             const product = products.filter(e => e.id === action.payload.id);
-            product[0].precio = action.payload.precio;
-            product[0].stock = action.payload.stock;
+            product[0].product.precio = action.payload.precio;
+            product[0].product.stock = action.payload.stock;
             return {
                 ...state,
-                products: products
+                products: product
             }
         case "deleteProduct":
             return {
@@ -71,15 +76,60 @@ export const todoReducer = (state: State, action: TodoAction): State => {
                 products: state.products.filter(e => e.id !== action.payload)
             }
         case "addProductsCart":
-            //const newProduct = action.payload;
-            //const bool = state.productCart.find(e => e.id === newProduct.id);
-            //const product = bool ?  state.productCart : [...state.productCart,action.payload];
             
             return {
                 ...state,
-                productsCart: action.payload                                                
+                allproductsCart: action.payload                                             
             }
+        case "addProductsCartCopy":
+                const arra = [] as ProductInfo[];
+
+                action.payload.forEach(e =>arra.push(
+                    {id:e.id, 
+                    product:{
+                        id:e.product.id,
+                        name:e.product.name,
+                        categoria: e.product.categoria,
+                        precio: e.product.precio,
+                        imgurl: e.product.imgurl,
+                        unit: e.product.unit,
+                    }, 
+                    almacen:{
+                        id:e.almacen.id,
+                        name: e.almacen.name
+                    }}));
+            return {
+                ...state,
+                productsCart: arra                                             
+                }
+        case "addProductCart":
+            return {
+                ...state,
+                productsCart: [...state.productsCart, action.payload]
+            }
+        case "updateProductCart":
+            const productsCart = state.productsCart;
+            const newprecio = action.payload.newprecio.toString();
+            const productCart = productsCart.filter(e => e.id === action.payload.id);
+            productCart[0].product.precio = newprecio;
+            //const productos = Searchproducto? Searchproducto?.product?.precio = toString(action.payload?.newprecio) : producto;
+
+            return {
+                ...state,
+                productsCart: productsCart
+
+            }
+            case "deleteProductCart":
+                const productsCartTwo = state.productsCart;
+                const notDeleteproductCart = productsCartTwo.filter(e => e.id !== action.payload);
+    
+                return {
+                    ...state,
+                    productsCart: notDeleteproductCart
+    
+                }
         case "selectStore":
+
             return {
                 ...state,
                 store_select: action.payload

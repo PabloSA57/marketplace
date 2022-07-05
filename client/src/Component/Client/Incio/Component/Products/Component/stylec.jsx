@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-import {Color} from "../../../../style/color";
 
-export const CardProductStyle = styled.section`
+export const CardProductStyle = styled.div`
     background-color: #FFFFFF;
     width: 23%;
     height: 300px;
@@ -36,8 +35,8 @@ export const CardProductStyle = styled.section`
     .con2 button {
         width: 89.5px;
         height: 33.67px;
-        background-color: ${Color.buttonadd};
-        color: ${Color.primary};
+        background-color: #000000;
+        color: #777777;
         border: none;
         border-radius: 2px;
         box-shadow: 5px 5px 5px 0px lightgray;

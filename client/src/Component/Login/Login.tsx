@@ -41,7 +41,7 @@ const {loginAuth} = useContext(TodoContext);
             error: false
         })
         try {
-            const res =  await axios.post('http://localhost:3001/login', input)
+            const res =  await axios.post('http://localhost:3001/user/login', input)
 
             /*setState({
                 loading: false,

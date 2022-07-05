@@ -9,7 +9,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 interface Prop {
     open: boolean,
     handleClose: (open: boolean) => void,
-    deleteProduct: () => void,
+    deleteProduct: () => void
 }
 const DialogC = ({open, handleClose, deleteProduct}: Prop) => {
     return (

@@ -8,6 +8,9 @@ export const  CardCartProductStyle = styled.div`
     align-items: center;
     justify-content: center;
     
+    .con0 {
+        width: 100%;
+    }
     .con{
     width: 95%;
     height: 90%;
@@ -28,5 +31,14 @@ export const  CardCartProductStyle = styled.div`
         width: 40px;
         height: 40px;
         margin-right: 10px;
+    }
+
+    .con-btndelete {
+        width: 60px;
+    }
+
+    .btn-delete {
+        color: blue;
+        cursor: pointer;
     }
     `

@@ -73,24 +73,27 @@ let productos = [{
             setActive(name)
         }
         useEffect(() => {
-            const getProductStore = async () => {
-                try {
-                    const product = await axios.get('http://localhost:3001/getproductofstore/' + store_select);
-                    console.log(product.data);
-                    getProductos(product.data)
-                } catch (error) {
-                    console.log(error)
+            if(store_select){
+                const getProductStore = async () => {
+                    try {
+                        const product = await axios.get('http://localhost:3001/product-store/getproductstore/' + store_select);
+                        console.log(product.data);
+                        getProductos(product.data)
+                    } catch (error) {
+                        console.log(error)
+                    }
+                    
                 }
-                
+    
+                getProductStore();
             }
-
-            getProductStore();
+            
         }, [store_select])   
 
     return (
             <ProductsStyle >
                 
-                    <div className='divrow'>
+                    <div className='div-row'>
                         <div>
                             <Text size='20px' weight='520' lineheight='20px'>  
                                 Productos
@@ -111,8 +114,8 @@ let productos = [{
                         </div>
                     </div>
                     
-                <section className='contain-product'>
-                    {products.length > 0 ?products?.map(p => <CardProduct product={p}/>) : null}
+                <section className='contain'>
+                    {products.length > 0 ?products?.map(p => <CardProduct product={p}/>) : <h2>No hay productos</h2>}
                 </section>
             </ProductsStyle>
         

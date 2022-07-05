@@ -9,11 +9,11 @@ export const InicioPage = () => {
         window.innerWidth
     );
 
-    const {getComercios, changeWidth, addProductToCart} = useContext(TodoContext);
+    const {getComercios, changeWidth, addProductToCart, addProductToCartCopy} = useContext(TodoContext);
 
     useEffect(() => {
         const getComerciosApi = async () => {
-            const res = await axios.get('http://localhost:3001/getstore')
+            const res = await axios.get('http://localhost:3001/store/getstore')
                 console.log(res.data)
                 getComercios(res.data)
         } 
@@ -23,9 +23,10 @@ export const InicioPage = () => {
 
     useEffect(() => {
         const getProductCart = async () => {
-            const res = await axios.get(`http://localhost:3001/getproductcart/${"a97da9de-1baa-4c23-8fb0-811f70f07a25"}`)
+            const res = await axios.get(`http://localhost:3001/cart/getproductcart/${"ff48f3fc-cf4e-4fc3-8b35-51cd7e860b8f"}`)
                 console.log(res.data)
                 addProductToCart(res.data)
+                addProductToCartCopy(res.data)
         } 
 
         getProductCart()

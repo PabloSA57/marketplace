@@ -32,7 +32,7 @@ const Register = () => {
         console.log("submit")
 
         try {
-            const po =  await axios.post("http://localhost:3001/register", input)
+            const po =  await axios.post("http://localhost:3001/user/register", input)
         setInput({
             name:'',
             lastname: '',

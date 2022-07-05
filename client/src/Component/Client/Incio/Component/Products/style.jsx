@@ -7,7 +7,13 @@ export const ProductsStyle = styled.div`
     @media (max-width: 900px) {
             width: 90%;
         }
-
+    
+        .div-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
     .filt{
     width: 50%;
     flex-direction: row;
@@ -16,5 +22,19 @@ export const ProductsStyle = styled.div`
     overflow-x: scroll;
     overflow-y: hidden;
     gap: 7px;
-}
+    }
+    .contain {
+        flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    gap: 2.6%;
+    min-height: 300px;
+
+  
+    }
+
+    @media (max-width: 768px) {
+        .contain {gap: 10%;}
+    }
+
 `

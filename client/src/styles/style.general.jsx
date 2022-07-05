@@ -5,7 +5,7 @@ export const Text = styled.span.attrs(props => ({
     size:props.size,
     weight:props.weight,
     lineheight: props.line || '22px',
-    color: props.color || "#0000",
+    color: props.color || "black",
     cursor: props.cursor || 'default'
 }))`
     font-size: ${props => props.size};

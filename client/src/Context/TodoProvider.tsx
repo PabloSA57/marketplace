@@ -3,7 +3,7 @@ import {useReducer} from 'react';
 import {TodoContext} from './Context';
 import {todoReducer} from './todoReducer';
 import {State} from '../Interface/State';
-import {Product, Commerce, ProductCart} from '../Interface/Commerce';
+import {Product, Commerce, ProductInfo} from '../Interface/Commerce';
 
 
 const INITIAL_STATE: State = {
@@ -11,6 +11,7 @@ const INITIAL_STATE: State = {
     currentType: window.localStorage.getItem('type') || null ,
     products:[],
     allproducts: [],
+    allproductsCart: [],
     productsCart:[],
     commerce: [],
     widthPhone: false,
@@ -26,7 +27,7 @@ export const TodoProvider = ({children} : props) => {
 
     const [todoState,dispatch] = useReducer(todoReducer, INITIAL_STATE);
 
-    const getProductos = async (p: Product[]) => {
+    const getProductos = async (p: ProductInfo[]) => {
         dispatch({type: "getProductos", payload:p})
     }
 
@@ -54,10 +55,25 @@ export const TodoProvider = ({children} : props) => {
         dispatch({type: "type", payload: type})
     }
 
-    const addProductToCart = (p: ProductCart[]) => {
+    const addProductToCart = (p: ProductInfo[]) => {
         dispatch({type:'addProductsCart', payload: p})
     }
 
+    const addProductToCartCopy = (p: ProductInfo[]) => {
+        dispatch({type:'addProductsCartCopy', payload: p})
+    }
+
+    const addProductCart = (p: ProductInfo) => {
+        dispatch({type:'addProductCart', payload: p})
+    }
+
+    const updateProductCart = (obj: {id: number,newprecio: number}) => {
+        dispatch({type:'updateProductCart', payload: obj})
+    }
+
+    const deleteProductCart = (id: number) => {
+        dispatch({type:'deleteProductCart', payload: id})
+    }
     const selectStore = (id: number) => {
         dispatch({type:'selectStore', payload: id});
     }
@@ -73,6 +89,10 @@ export const TodoProvider = ({children} : props) => {
             updateProducto,
             deleteProduct,
             addProductToCart,
+            addProductToCartCopy,
+            addProductCart,
+            updateProductCart,
+            deleteProductCart,
             selectStore
         }}>
             {children}

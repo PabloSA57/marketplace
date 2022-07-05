@@ -1,7 +1,8 @@
+import Configure from "../../Component/Commerce/Configure/Configure";
 
 const ConfigurePage = () => {
     return (
-        <div>Configue-Page</div>
+        <div><Configure /></div>
     )
 }
 export default ConfigurePage;

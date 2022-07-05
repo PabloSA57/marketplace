@@ -2,8 +2,9 @@ export interface Commerce{
     id:number;
     name: string;
     img?: string;
-    lugar?: string;
+    ubicacion?: string;
 }
+
 
 export interface Product {
     id: number;
@@ -13,10 +14,12 @@ export interface Product {
     almacen?: string;
     precio?: string ;
     stock?: string | null;
+    unit?: "kg" | "cantidad";
 }
 
-export interface ProductCart {
+export interface ProductInfo {
     id: number;
-    store:Commerce,
     product: Product
+    almacen:Commerce,
+    
 }

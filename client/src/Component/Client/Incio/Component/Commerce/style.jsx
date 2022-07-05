@@ -9,6 +9,12 @@ export const  CommerceStyle = styled.section`
             width: 90%;
     }
 
+    .div-row {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
     .concardcomercio{
         width: 100%;
         height: 160px;

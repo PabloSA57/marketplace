@@ -5,11 +5,11 @@ import { RiEditLine, RiDeleteBinLine } from "react-icons/ri";
 
 import axios from 'axios';
 import DialogC from './Component/Dialog';
-import { Product } from '../../../../Interface/Commerce';
+import { Product, ProductInfo } from '../../../../Interface/Commerce';
 import { TodoContext } from '../../../../Context/Context';
 
 interface Prop{
-    producto: Product,
+    producto: ProductInfo,
     activeProduct: number[],
     handlerActive: (b: number[]) => void
 }
@@ -93,7 +93,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                 {activeProduct[0] === producto.id 
                 ?   <div>
                         <fieldset>
-                            {producto.stock === "stock" ? <input type="radio"
+                            {producto.product.stock === "stock" ? <input type="radio"
                             onChange={changeRadio}
                             ref={check}
                             name={`stock${producto.id}`} 
@@ -108,7 +108,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                             />
                         }
 
-                            {producto.stock === "stock" ? <input type="radio"
+                            {producto.product.stock === "stock" ? <input type="radio"
                             onChange={changeRadio}
                             
                             name={`stock${producto.id}`} 
@@ -125,19 +125,19 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                         </fieldset>
                     </div> 
                 :<div 
-                className={producto.stock === "stock" ?'stock' : 'nostock'}>
+                className={producto.product.stock === "stock" ?'stock' : 'nostock'}>
                 </div>}
 
                 <div className='img-cp'>
-                    <img src={producto.imgurl} alt="" />
+                    <img src={producto.product.imgurl} alt="" />
                 </div>
 
                 <div className='name-card'>
-                    <span>{producto.name}</span>
+                    <span>{producto.product.name}</span>
                 </div>
 
                 <div className='categoria'>
-                    <span>{producto.categoria}</span>
+                    <span>{producto.product.categoria}</span>
                 </div>
 
                 <div className='precio'>
@@ -147,7 +147,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                         name="precio"
                         value={update.precio}
                         placeholder='New precio'/> 
-                    :<span>$ {producto.precio ? producto.precio : 0}</span>
+                    :<span>$ {producto.product.precio ? producto.product.precio : 0}</span>
                     }
                 </div>
 
@@ -157,8 +157,8 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                     onClick={() => {
                         handlerActive([producto.id,0]);
                         setUpdate({
-                            stock: producto.stock,
-                            precio: producto.precio
+                            stock: producto.product.stock,
+                            precio: producto.product.precio
                         })
                         }}>
                         <span><RiEditLine /></span>

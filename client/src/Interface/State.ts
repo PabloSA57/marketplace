@@ -1,16 +1,17 @@
-import {Product, Commerce, ProductCart } from './Commerce';
+import {Product, Commerce, ProductInfo } from './Commerce';
 
 export interface State {
     //userLogin
     jwtToken: string | null,
     currentType: string | null,
     //Product
-    products: Product[],
-    allproducts: Product[],
-    productsCart: ProductCart[],
+    products: ProductInfo[],
+    allproducts: ProductInfo[],
+    allproductsCart: ProductInfo[],
+    productsCart: ProductInfo[],
     commerce: Commerce[],
     widthPhone: boolean,
     //comercio
-    products_commerce: Product[],
+    products_commerce: ProductInfo[],
     store_select: number
 }

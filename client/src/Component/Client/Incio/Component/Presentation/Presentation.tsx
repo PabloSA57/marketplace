@@ -1,6 +1,6 @@
 
 import { PresentationStyle } from "./style"
-import carrito from '../../../public/carrito.png';
+//import carrito from '../../../public/carrito.png';
 
 export default function Presentation() {
     return (
@@ -13,7 +13,7 @@ export default function Presentation() {
             </div>
             <div className='pngcarrito'>
                 <div>
-                <img src={carrito} alt="" />
+                <img  alt="" />
                 </div>
             </div>
             </div>

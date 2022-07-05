@@ -13,11 +13,12 @@ const Cart = ({precio}: Prop) => {
     const navigate = useNavigate();
     const {todoState} = useContext(TodoContext);
     const {productsCart} = todoState;
+    console.log(productsCart)
 
     return (
             <CartLogoStyle >
                 <div>
-                    <div onClick={() => navigate('/incio/cart')} className='carritonoti'>{productsCart.length}</div>
+                    <div onClick={() => navigate('/inicio/cart')} className='carritonoti'>{productsCart.length}</div>
                     <IoCartOutline />
                 </div>
                 <div className='concarritoprecio'>
