@@ -39,7 +39,7 @@ export default function Header() {
                     <button className='btnlogin'>Login</button>
                     <button className='btnregister'>Register</button>
                 </div>
-                :<div></div>
+                :null
                 }
             </div>
             

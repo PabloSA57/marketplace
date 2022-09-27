@@ -10,21 +10,21 @@ const Nav = () => {
     return (
         <NavStyle >
             <div className="nav-items">
-                <NavLink  to='/comercio' end/*style={({ isActive }) => {
+                <NavLink  to='/commerce' end/*style={({ isActive }) => {
                 return {
                 display: 'block',
                 margin: '1rem 0',
                 color: isActive ? 'red' : '',
                 };
             }}*/><RiDashboardFill /></NavLink>
-                <NavLink to='/comercio/edite' style={({ isActive }) => {
+                <NavLink to='/commerce/edit' style={({ isActive }) => {
                 return {
                 display: 'block',
                 margin: '1rem 0',
                 color: isActive ? 'red' : '',
                 };
             }}><BiStore /></NavLink>
-                <NavLink to='/comercio/config' style={({ isActive }) => {
+                <NavLink to='/commerce/config' style={({ isActive }) => {
                 return {
                 display: 'block',
                 margin: '1rem 0',

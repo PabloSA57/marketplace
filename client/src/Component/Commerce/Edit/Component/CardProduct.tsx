@@ -29,6 +29,8 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
     const [open, setOpen] = useState<boolean>(false);
 
     const check= useRef<HTMLInputElement>(null);
+
+    console.log(producto)
     const changeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(check.current?.checked)
         console.log(e.target.value)
@@ -57,7 +59,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
         e.preventDefault();
         setLoader(true);
         try {
-            const res = await axios.put("http://localhost:3001/updateproduct", {
+            const res = await axios.put("http://localhost:3001/product-store/updateproduct", {
                 precio: update.precio,
                 stock: update.stock,
                 id: id
@@ -155,7 +157,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                     <div 
                     className={activeProduct[0] === producto.id ? "e-d-btn active" : "e-d-btn"}
                     onClick={() => {
-                        handlerActive([producto.id,0]);
+                        handlerActive([producto.id as number,0]);
                         setUpdate({
                             stock: producto.product.stock,
                             precio: producto.product.precio
@@ -166,10 +168,10 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
 
                     <div 
                     className={activeProduct[1] === producto.id ? "e-d-btn active" : "e-d-btn"}
-                    onClick={() => handlerActive([0,producto.id])}>
+                    onClick={() => handlerActive([0,producto.id as number])}>
                         <button onClick={() => {
                                 setOpen(!open)
-                                handlerActive([0,producto.id])
+                                handlerActive([0,producto.id as number])
                                 }}>
                                 <RiDeleteBinLine />
                         </button>
@@ -179,7 +181,7 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
 
                     {activeProduct[0] === producto.id 
                     ?<div>
-                        <button onClick={(e) => updateProduct(e,producto.id)}>{loader ? "c.." :"Save"}</button>
+                        <button onClick={(e) => updateProduct(e,producto.id as number)}>{loader ? "c.." :"Save"}</button>
                     </div>
                     : null    
                     } 

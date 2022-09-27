@@ -8,15 +8,19 @@ const {
         UpdateProduct, 
         DeleteProduct, 
         GetProductOfStore,
-        ProductToAdd
+        AllProductOfStore,
+        ProductToAdd,
+        BestSellingProducts
         } = require ('../controllers/product_store.controller');
 
 router.post('/addproductstore', AddProductToStore);
-router.put('/updatestore', UpdateProduct);
+router.put('/updateproduct', UpdateProduct);
 router.delete('/deleteproduct', DeleteProduct);
+router.get('/bestproducts/:storeId', BestSellingProducts)
 
 router.get('/getproductstore/:idstore', GetProductOfStore);
+router.get('/allproductstore/:idstore', AllProductOfStore);
 
-router.post('/producttoadd/:idstore', ProductToAdd)
+router.get('/producttoadd/:idstore', ProductToAdd)
 
 module.exports = router;

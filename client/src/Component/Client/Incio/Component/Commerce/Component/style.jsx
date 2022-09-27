@@ -35,5 +35,9 @@ export const CardCommerceStyle = styled.div.attrs(props => ({
         box-shadow: 1px  2px 5px grey;
     }
 
+    @media (max-width: 700px) {
+        width: 120px;
+        height: 150px;
+    }
 `
 

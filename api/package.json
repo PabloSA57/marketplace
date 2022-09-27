@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "algoliasearch": "^4.13.1",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.30.0",
     "cookie-parse": "^0.4.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -21,7 +24,8 @@
     "mercadopago": "^1.5.13",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
-    "sequelize": "^6.21.1"
+    "sequelize": "^6.21.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.18"

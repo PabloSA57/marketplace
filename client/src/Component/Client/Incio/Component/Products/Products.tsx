@@ -8,55 +8,6 @@ import axios from 'axios';
 import { TodoContext } from '../../../../../Context/Context';
 import { CardProduct } from './Component/CardProduct';
 import { Text } from '../../../../../styles/style.general';
-let productos = [{
-    id: 1,
-    name: "Tomate",
-    imgurl: "https://static4.depositphotos.com/1017505/320/i/600/depositphotos_3201839-stock-photo-three-tomatoes.jpg",
-    categoria: "Verduras",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},
-{
-    id: 2,
-    name: "Bananas",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},
-{
-    id: 3,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},  
-{
-    id: 4,
-    name: "Bananas",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-},
-{
-    id: 5,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-}
-
-]
 
 
     const arrTipo = ["All", 'Verduras', 'Frutas', 'Bebidas', 'Golosinas', 'Otros'];
@@ -64,9 +15,9 @@ let productos = [{
         const [active, setActive] = useState('All')
         const {todoState, updateTipo, getProductos} = useContext(TodoContext);
         const {store_select} = todoState;
-        const {products} = todoState;
+        const {productInfo} = todoState;
 
-        
+        console.log(productInfo)
 
         const handlerTipo = (name: string) => {
             updateTipo(name)
@@ -77,7 +28,7 @@ let productos = [{
                 const getProductStore = async () => {
                     try {
                         const product = await axios.get('http://localhost:3001/product-store/getproductstore/' + store_select);
-                        console.log(product.data);
+                        console.log(product);
                         getProductos(product.data)
                     } catch (error) {
                         console.log(error)
@@ -90,12 +41,18 @@ let productos = [{
             
         }, [store_select])   
 
+        const pruebaSession = (obj: any) => {
+        
+            window.sessionStorage.setItem('prueba', JSON.stringify(obj))
+        }
+        pruebaSession({s:"s"})
+        
     return (
             <ProductsStyle >
                 
                     <div className='div-row'>
                         <div>
-                            <Text size='20px' weight='520' lineheight='20px'>  
+                            <Text size='20px' weight='520' lineheight='20px' color='#253D4E'>  
                                 Productos
                             </Text>
                         </div>
@@ -103,7 +60,7 @@ let productos = [{
                             {arrTipo.map(e => 
                             <Text 
                             onClick= {() => handlerTipo(e)}
-                            color={active === e ? 'orange' : null}
+                            color={active === e ? 'orange' : '#253D4E'}
                             size='14px' 
                             weight='400' 
                             lineheight='20px' 
@@ -115,7 +72,7 @@ let productos = [{
                     </div>
                     
                 <section className='contain'>
-                    {products.length > 0 ?products?.map(p => <CardProduct product={p}/>) : <h2>No hay productos</h2>}
+                    {productInfo.length > 0 ?productInfo?.map(p => <CardProduct product={p}/>) : <h2>No hay productos</h2>}
                 </section>
             </ProductsStyle>
         

@@ -1,11 +1,11 @@
 import React, { useContext, useState} from 'react'
 import { TodoContext } from '../../../../../../Context/Context';
-import { Product } from '../../../../../../Interface/Commerce';
+import { Product, ProductInfo } from '../../../../../../Interface/Commerce';
 
 import {CardProductStyle} from './style';
 
 interface Prop {
-    producto: Product,
+    producto: ProductInfo,
     funcSelect: (s: number) => void,
     searchId: (id: number) => void,
     found: boolean,
@@ -13,8 +13,6 @@ interface Prop {
 }
 
 const CardProduct = ({producto, funcSelect, searchId, found}: Prop) => {
-    const {todoState} = useContext(TodoContext);
-    const {allproducts} = todoState;
 
     const [selectCard, setSelectCard] = useState(0);
     //console.log(allproductos)
@@ -22,20 +20,23 @@ const CardProduct = ({producto, funcSelect, searchId, found}: Prop) => {
     return (
         <CardProductStyle 
         onClick={() => {
-            funcSelect(producto.id)
-            searchId(producto.id)
-            setSelectCard(producto.id)
+            funcSelect(producto.product.id)
+            searchId(producto.product.id)
+            setSelectCard(producto.product.id)
         }}
-        activeSelect={selectCard === producto.id ? "orange" : null}
+        activeSelect={selectCard === producto.product.id ? "orange" : null}
         >
             <div className='con'>
-                <div className='conimg'><img src={producto.imgurl} alt="" /></div>
+                <div className='conimg'>
+                    <img src={producto.product.imgurl} alt="" />
+                </div>
+                
                 <div className='con1'>
                     <div>
-                        <span className='text-cat'>{producto.categoria}</span>
+                        <span className='text-cat'>{producto.product.categoria}</span>
                     </div>
                     <div>
-                        <span className='text-nam'>{producto.name}</span>
+                        <span className='text-nam'>{producto.product.name}</span>
                     </div>
                 </div>
             </div>

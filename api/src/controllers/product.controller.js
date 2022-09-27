@@ -1,4 +1,4 @@
-const {Product, Category} = require('../db.js');
+const {Product, Category, Order, Detailorder} = require('../db.js');
 
 const AddProducts = async (req, res) => {
     const {productos, categoria} = req.body;
@@ -10,7 +10,7 @@ const AddProducts = async (req, res) => {
             where:{name: categoria}
         })
 
-        await typeCategory[0].addProductos(products);
+        await typeCategory[0].addProducts(products);
 
         res.json(products);
 
@@ -32,6 +32,8 @@ const GetProducts = async (req, res)  => {
         res.send(error)
     }
 }
+
+
 
 module.exports = {
     AddProducts,

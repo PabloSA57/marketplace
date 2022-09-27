@@ -9,6 +9,7 @@ export const CardProductStyle = styled.div.attrs(props => ({
     border: 1px solid ${props => props.activeSelect};
     border-radius: 3px;
     margin-bottom: 20px;
+    cursor: pointer;
 
     .con{
         margin: 5px;

@@ -5,19 +5,21 @@ const routerPrivate = express.Router();
 
 routerPrivate.use((req, res, next) => {
     const token = req.headers['access-token'];
-	console.log(token)
+    console.log(req.headers)
+	console.log("token", token)
     if (token) {
     jwt.verify(token, 'pepe', (err, decoded) => {      
         if (err) {
         return res.status(404).json({ mensaje: 'Token inválida', err });    
         } else {
             console.log('correctoo jwt')
-            req.decoded = decoded;    
+            req._user = decoded;    
             next();
         }
     });
     } else {
-        res.send({ 
+        
+        res.status(500).json({ 
             mensaje: 'Token no proveída.' 
         });
     }

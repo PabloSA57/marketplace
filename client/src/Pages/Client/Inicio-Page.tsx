@@ -3,13 +3,15 @@ import Inicio from '../../Component/Client/Incio/Inicio';
 
 import axios from 'axios';
 import { TodoContext } from '../../Context/Context';
+import { getStoreAround } from '../../service/store';
+import { Commerce } from '../../Interface/Commerce';
+import { useSesionStorage } from '../../hooks/useSesionStorage';
 
 export const InicioPage = () => {
-    const [width, setWidth] = useState<number>(
-        window.innerWidth
-    );
+    const {get} = useSesionStorage('productscart')
 
-    const {getComercios, changeWidth, addProductToCart, addProductToCartCopy} = useContext(TodoContext);
+    const {getComercios, addProductToCart, addProductToCartCopy, todoState} = useContext(TodoContext);
+    const {LatLng, currentUser} = todoState;
 
     useEffect(() => {
         const getComerciosApi = async () => {
@@ -22,35 +24,54 @@ export const InicioPage = () => {
     }, [])
 
     useEffect(() => {
+        const res = get()
+        addProductToCart(res)
+        addProductToCartCopy(res)
+    }, [])
+    /*useEffect(() => {
         const getProductCart = async () => {
-            const res = await axios.get(`http://localhost:3001/cart/getproductcart/${"ff48f3fc-cf4e-4fc3-8b35-51cd7e860b8f"}`)
-                console.log(res.data)
+            const res = await axios.get(`http://localhost/cart/getproductcart/${currentUser?.id}`)
                 addProductToCart(res.data)
                 addProductToCartCopy(res.data)
         } 
 
         getProductCart()
-    }, [])
+    }, [currentUser])*/
 
-    
-
-    useEffect(() => {
-        function resizeListener() {
-        setWidth(window.innerWidth)
+    /*const onSuccess = async (location: any) => {
+        const res = await getStoreAround(location.coords.latitude, location.coords.longitude)
+        getComercios(res.data)
     }
-        window.addEventListener("resize", resizeListener);
-    }, [window.innerWidth])
+
+    const onError = (error: any) => {
+        console.log(error)
+    }
+
 
     useEffect(() => {
-        if(width < 700 ){
-            changeWidth(true)
-        }else{
-            changeWidth(false)
+        if(LatLng?.lat === null || LatLng?.lng === null){
+            console.log('geolocation')
+            if (!("geolocation" in navigator)) {
+                onError({
+                code: 0,
+                message: "Geolocation not supported",
+                });
+            }
+            navigator.geolocation.getCurrentPosition(onSuccess, onError);
+        }else {
+            const Func = async () => {
+                const res = await getStoreAround(LatLng.lat as number, LatLng.lng as number);
+                getComercios(res?.data )
+            }
+
+            Func()
         }
-    }, [width])
+        
+    }, [LatLng]);*/
+
 
     return (
-        <div><Inicio /></div>
+        <><Inicio /></>
     )
 }
 

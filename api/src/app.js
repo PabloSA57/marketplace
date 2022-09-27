@@ -33,6 +33,8 @@ const StoreRoute = require('./routes/store');
 const ProductStoreRoute = require('./routes/product_store');
 const CategoryRoute = require('./routes/category');
 const CartRoute = require('./routes/cart');
+const MercadopagoRoute = require('./routes/mercadopago');
+const OrderRoute = require('./routes/order')
 //Routes
 server.use('/user', UserRoute);
 server.use('/product', ProductRoute);
@@ -40,6 +42,8 @@ server.use('/store', StoreRoute);
 server.use('/product-store', ProductStoreRoute);
 server.use('/category', CategoryRoute);
 server.use('/cart', CartRoute);
+server.use('/order', OrderRoute);
+server.use('/mercadopago', MercadopagoRoute);
 
 
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

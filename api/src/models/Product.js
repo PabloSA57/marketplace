@@ -15,6 +15,10 @@ module.exports = (sequelize) => {
         imgurl:{
             type: DataTypes.STRING,
             allowNull: false
+        },
+        unit: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
 }

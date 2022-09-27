@@ -2,30 +2,34 @@ const {User} = require('../db.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
-const Register = async (req, res) => {
-    let password = bcrypt.hashSync(req.body.password, Number.parseInt(10))
+const RegisterAux = async (body) => {
+    console.log(body)
+    let password = bcrypt.hashSync(body.password, Number.parseInt(10))
     try {
         const user = await   User.create({
-            name: req.body.name,
-            lastname: req.body.lastname,
-            email: req.body.email,
+            name: body.name,
+            lastname: body.lastname,
+            email: body.email,
             password: password,
-            type: req.body.type
+            type: body.type
         });
         
         let token = jwt.sign({user: user}, 'pepe', {
             expiresIn: "24h"
         });
        // res.cookie('useToken', user[0].id)
-        res.json({
-            user: user,
-            token: token
-        });
+        return{message:"create",  user}
     } catch (error) {
-        console.log(error)
-        res.status(500).json(error)  
+        return {message: "error", error};
     }
+}
+
+const Register = async (req, res) => {
+        const user = await RegisterAux(req.body);
+
+        if(user.message === 'create') res.json(user)
+        if(user.message === 'error') res.status(500).json(user)
+    
 }
 
 const Login = async (req, res) => {
@@ -64,8 +68,23 @@ const Login = async (req, res) => {
 
 }
 
+const Authentication = async (req, res) => {
+    const user = req._user.user;
 
+    try {
+        const resUser = await   User.findOne({where:{id: user.id}})
+        console.log(resUser)
+
+        resUser === null 
+            ? res.status(500).json({message: 'user eliminado'}) 
+            : res.send(resUser)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+}
 module.exports = {
     Register,
-    Login
+    RegisterAux,
+    Login,
+    Authentication
 }

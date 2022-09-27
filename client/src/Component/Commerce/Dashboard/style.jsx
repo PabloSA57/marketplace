@@ -17,11 +17,6 @@ export const  DashboardStyle = styled.div`
         justify-content: center;
     }
 
-    .con11{
-        width: 95%;
-        margin: auto;
-    }
-
     .con111{
         font-size: 34px;
         font-weight: 400;
@@ -32,8 +27,35 @@ export const  DashboardStyle = styled.div`
         margin: auto;
     }
 
+    .con2 {
+        background-color: aliceblue;
+        padding-bottom: 15px;
+        background-color: #f9f9f9;
+        border-radius: 20px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    }
+
+    .con3 {
+        width: 100%;
+        background-color: #f9f9f9;
+        border-radius: 20px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        padding: 5px;
+        min-height: 300px;
+        
+    }
+
+    .subtitulos-dh {
+        margin: 0;
+        color: #757171;
+    }
+
     .con22{
         margin-top: 20px;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
     }
     .card-acti{
         width: 40%;
@@ -45,29 +67,7 @@ export const  DashboardStyle = styled.div`
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
 
-    .c-icon{
-        width: 60px;
-        height: 60px;
-        background-color: aqua;
-        border-radius: 50%;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .card-product{
-        width: 40%;
-        height: 50px;
-        background-color: #ffffff;
-        flex-direction: row;
-        align-items: center;
-        border: 0.1px solid #bcbcbc;
-    }
-
-    .cp-img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: aqua;
-        
+    @media only screen and (max-width: 850px){
+        width: 90%;
     }
 ` 

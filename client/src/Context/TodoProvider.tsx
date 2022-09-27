@@ -3,20 +3,29 @@ import {useReducer} from 'react';
 import {TodoContext} from './Context';
 import {todoReducer} from './todoReducer';
 import {State} from '../Interface/State';
-import {Product, Commerce, ProductInfo} from '../Interface/Commerce';
+import {Product, Commerce, ProductInfo, Order} from '../Interface/Commerce';
+import { User } from '../Interface/User';
 
 
 const INITIAL_STATE: State = {
     jwtToken: window.localStorage.getItem('jwtToken') || null,
     currentType: window.localStorage.getItem('type') || null ,
+    currentUser: null,
     products:[],
+    productInfo: [],
     allproducts: [],
     allproductsCart: [],
     productsCart:[],
+    productCartStore: [],
+    storeCart: [],
     commerce: [],
     widthPhone: false,
+    mycommerce: null,
     products_commerce: [],
     store_select: 0,
+    hasStore: false,
+    LatLng: {lng: sessionStorage.getItem('lng') as number | null, lat: sessionStorage.getItem('lat') as number | null,},
+    orders: [],
 }
 
 interface props{ 
@@ -27,8 +36,16 @@ export const TodoProvider = ({children} : props) => {
 
     const [todoState,dispatch] = useReducer(todoReducer, INITIAL_STATE);
 
+    const setCurrentUser = async (u: User) => {
+        dispatch({type: "setCurrentUser", payload:u})
+    }
+
     const getProductos = async (p: ProductInfo[]) => {
         dispatch({type: "getProductos", payload:p})
+    }
+
+    const getProductToAdd = async (p: Product[]) => {
+        dispatch({type: "getProductToAdd", payload:p})
     }
 
     const updateTipo = (tipo: string) => {
@@ -41,6 +58,10 @@ export const TodoProvider = ({children} : props) => {
 
     const deleteProduct = (id: number) => {
         dispatch({type: "deleteProduct", payload: id})
+    }
+
+    const searchProduct = (name: string) => {
+        dispatch({type: 'searchProduct', payload: name})
     }
     const getComercios = (c: Commerce[]) => {
         dispatch({type: "getComercios", payload: c})
@@ -78,22 +99,50 @@ export const TodoProvider = ({children} : props) => {
         dispatch({type:'selectStore', payload: id});
     }
 
+    const getStoreCart = (c: Commerce[]) => {
+        dispatch({type:'getStoreCart', payload: c})
+    }
+
+    const selectStoreCart = (id: number) => {
+        dispatch({type: 'selectStoreCart', payload:id})
+    }
+
+    const setCommerce = (c: Commerce) => {
+        dispatch({type:'setCommerce', payload: c})
+    }
+
+    const setHasStore = (b: boolean) => {
+        dispatch({type:'setHasStore', payload: b})
+    }
+
+    //Order
+    const getOrder = (orders: Order[]) => {
+        dispatch({type:'getOrders', payload: orders})
+    }
     return (
         <TodoContext.Provider value={{
             todoState,
+            setCurrentUser,
             getProductos,
+            getProductToAdd,
             updateTipo,
+            searchProduct,
             getComercios,
             changeWidth,
             loginAuth,
             updateProducto,
             deleteProduct,
+            getStoreCart,
+            selectStoreCart,
             addProductToCart,
             addProductToCartCopy,
             addProductCart,
             updateProductCart,
             deleteProductCart,
-            selectStore
+            selectStore,
+            setCommerce,
+            setHasStore,
+            getOrder
         }}>
             {children}
         </TodoContext.Provider>

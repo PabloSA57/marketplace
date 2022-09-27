@@ -5,11 +5,127 @@ import { AddProductStyle } from './style';
 import CardProduct from './Component/CardProduct/CardProduct';
 
 import axios from 'axios';
-import { TodoContext } from '../../../../Context/Context';
+
 import { Text } from '../../../../styles/style.general';
-interface Prop{
+import { TodoContext } from '../../../../Context/Context';
+import { Product } from '../../../../Interface/Commerce';
+/*interface Prop{
     activeC: React.Dispatch<React.SetStateAction<boolean>>
+}*/
+
+const TypeArr = ["All", "Verduras", "Frutas", "Bebidas", "Golosinas", "Otros"]
+
+export const AddProduct = () => {
+    const {getProductos,updateTipo, todoState} =  useContext(TodoContext);
+    const {productInfo, mycommerce} = todoState;
+
+    const [active, setActive] = useState('All')
+    const [arrayProductSelect, setArrayProductSelect] = useState<number[]>([]);
+    const [found , setFound] = useState(false);
+    //const [selectCard, setSelectCard] = useState(0);
+
+    console.log(arrayProductSelect)
+
+    const handlerSelect = (id: number) => {
+        //setSelectCard(id);
+        let res = arrayProductSelect.some((item) => item === id);
+
+        res 
+        ? setArrayProductSelect(arrayProductSelect.filter((item) => item !== id)) 
+        : setArrayProductSelect([...arrayProductSelect, id])
+    }
+
+    const searchId = (id: number) => {
+        let res = arrayProductSelect.some((item) => item === id);
+        setFound(res);
+    }
+
+    useEffect(() => {
+        const getProductToAddf = async () => {
+            const res = await axios.get("http://localhost:3001/product-store/producttoadd/" + mycommerce?.id);
+            console.log(res);
+            getProductos(res.data)
+        }
+
+        getProductToAddf()
+    }, [])
+
+
+    const addProduct = async() => {
+        console.log(arrayProductSelect)
+        const res = await axios.post("http://localhost:3001/product-store/addproductstore/", {
+            productos: arrayProductSelect,
+            tiendaId: mycommerce?.id
+        });
+        console.log(res.data);
+        window.location.reload();
+    }
+
+
+    const handlerTipo = (name: string) => {
+        updateTipo(name)
+        setActive(name)
+    }
+    
+    const closeComponet = () => {
+        //activeC(false);
+        window.location.reload();
+    }
+    return (
+            <AddProductStyle>
+                <div className='-con'>
+                    <div className='con-edit'>
+                        <div className='con-edit1'>
+                            <div className='con-edit11'>
+                                <button onClick={closeComponet}>X</button>
+                            </div>
+
+                            <div className='con-edit12'>
+                                <div>
+                                    Todos los productos
+                                </div>
+
+                                <div className='filt'>
+                                    {TypeArr.map(e => 
+                                    <Text 
+                                    onClick= {() => handlerTipo(e)}
+                                    color={active === e ? 'orange' : null}
+                                    size='14px' 
+                                    weight='400' 
+                                    lineheight='20px' 
+                                    cursor='pointer'>
+                                        {e}
+                                    </Text>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className='con-edit13'>
+                                {productInfo?.map(producto => <CardProduct producto={producto} 
+                                funcSelect={handlerSelect}
+                                searchId={searchId}
+                                found={found}
+                                />)}
+                            </div>
+                            {arrayProductSelect.length > 0 
+                                ?<button 
+                                className='btn-add'
+                                onClick={addProduct}
+                                >
+                                Agregar {arrayProductSelect.length}
+                                </button> 
+                                : null}
+                        </div>
+                    </div>
+                </div>
+            </AddProductStyle>
+    )
 }
+
+
+
+
+export default AddProduct;
 /*const AddProduct = ({activeC}: Prop) => {
     const [c , setc] = useState(false)
     const [input, setInput] = useState<Producto>({
@@ -98,181 +214,3 @@ interface Prop{
             </AddProductStyle>
     )
 }*/
-
-
-let productos = [{
-    id: 1,
-    name: "Tomate",
-    imgurl: "https://static4.depositphotos.com/1017505/320/i/600/depositphotos_3201839-stock-photo-three-tomatoes.jpg",
-    categoria: "Verduras",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},
-{
-    id: 2,
-    name: "Bananas",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},
-{
-    id: 3,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-},  
-{
-    id: 4,
-    name: "Bananas",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-},
-{
-    id: 5,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-},
-{
-    id: 6,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-},
-{
-    id: 7,
-    name: "Pera",
-    imgurl: "http://camabana.com/img/header/bananas.jpg",
-    categoria: "Frutas",
-    almacen: "Las Sierras",
-    precio: "100",
-    descripcion: "Tomate"
-
-}
-
-]
-
-const arrTipo = ["All", 'Verduras', 'Frutas', 'Bebidas', 'Golosinas', 'Otros'];
-
-export const AddProduct = ({activeC}: Prop) => {
-    const {getProductos,updateTipo, todoState} =  useContext(TodoContext);
-    const {products} = todoState;
-
-    const [active, setActive] = useState('All')
-    const [arrayProductSelect, setArrayProductSelect] = useState<number[]>([]);
-    const [found , setFound] = useState(false);
-    //const [selectCard, setSelectCard] = useState(0);
-
-    console.log(arrayProductSelect)
-
-    const handlerSelect = (id: number) => {
-        //setSelectCard(id);
-        let res = arrayProductSelect.some((item) => item === id);
-
-        res ? setArrayProductSelect(arrayProductSelect.filter((item) => item !== id)) : setArrayProductSelect([...arrayProductSelect, id])
-    }
-
-    const searchId = (id: number) => {
-        let res = arrayProductSelect.some((item) => item === id);
-        setFound(res);
-    }
-
-    useEffect(() => {
-        const getProductToAdd =async () => {
-            const res = await axios.get("http://localhost:3001/producttoadd/" + 1);
-            //console.log(res.data);
-            getProductos(res.data);
-        }
-
-        getProductToAdd()
-    }, [])
-
-
-    const addProduct = async() => {
-        const res = await axios.post("http://localhost:3001/addproducttostore/", {
-            productos: arrayProductSelect,
-            tiendaId: 1
-        });
-        console.log(res.data);
-    }
-
-
-    const handlerTipo = (name: string) => {
-        updateTipo(name)
-        setActive(name)
-    }
-    
-    const closeComponet = () => {
-        //activeC(false);
-        window.location.reload();
-    }
-    return (
-            <AddProductStyle>
-                <div className='-con'>
-                    <div className='con-edit'>
-                        <div className='con-edit1'>
-                            <div className='con-edit11'>
-                                <button onClick={closeComponet}>X</button>
-                            </div>
-
-                            <div className='con-edit12'>
-                                <div>
-                                    Todos los productos
-                                </div>
-
-                                <div className='filt'>
-                                    {arrTipo.map(e => 
-                                    <Text 
-                                    onClick= {() => handlerTipo(e)}
-                                    color={active === e ? 'orange' : null}
-                                    size='14px' 
-                                    weight='400' 
-                                    lineheight='20px' 
-                                    cursor='pointer'>
-                                        {e}
-                                    </Text>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className='con-edit13'>
-                                {productos.map(producto => <CardProduct producto={producto} 
-                                funcSelect={handlerSelect}
-                                searchId={searchId}
-                                found={found}
-                                />)}
-                            </div>
-                            {arrayProductSelect.length > 0 
-                                ?<button 
-                                className='btn-add'
-                                onClick={addProduct}
-                                >
-                                Agregar {arrayProductSelect.length}
-                                </button> 
-                                : null}
-                        </div>
-                    </div>
-                </div>
-            </AddProductStyle>
-    )
-}
-
-export default AddProduct;

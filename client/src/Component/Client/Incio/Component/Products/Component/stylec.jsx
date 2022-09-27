@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Color } from "../../../../../../styles/color.js";
 
 export const CardProductStyle = styled.div`
     background-color: #FFFFFF;
@@ -35,11 +35,12 @@ export const CardProductStyle = styled.div`
     .con2 button {
         width: 89.5px;
         height: 33.67px;
-        background-color: #000000;
-        color: #777777;
+        background-color: ${Color.Two};
+        color: ${Color.One};
         border: none;
         border-radius: 2px;
         box-shadow: 5px 5px 5px 0px lightgray;
+        cursor: pointer;
     }
 
     @media (max-width: 700px) {

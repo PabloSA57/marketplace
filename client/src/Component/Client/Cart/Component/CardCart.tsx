@@ -5,6 +5,7 @@ import { useContext, useEffect, Suspense, useState } from 'react';
 import { TodoContext } from '../../../../Context/Context';
 import DialogC from '../../../Commerce/Edit/Component/Component/Dialog';
 import axios from 'axios';
+import { useSesionStorage } from '../../../../hooks/useSesionStorage';
 
 
 interface Prop {
@@ -12,19 +13,21 @@ interface Prop {
     product: ProductInfo
 }
 const CardCart = ({product}: Prop) => {
+    const {delet} = useSesionStorage('productscart')
     const [open, setOpen] = useState<boolean>(false);
     const [id, setId] = useState<number>(0);
     const {todoState, updateProductCart, deleteProductCart} = useContext(TodoContext);
     const {allproductsCart } = todoState;
     const handlerInputChange = (e : React.ChangeEvent<HTMLSelectElement>, id: number ) => {
         
-        const filter = allproductsCart.filter(e  => e.id === id);
-        const newprecio = parseFloat(filter[0].product.precio as string) * parseFloat(e.target.value);
+        const filter = allproductsCart?.filter(e  => e.id === id) as ProductInfo[];
+        const newprecio =   parseFloat(filter[0]?.product.precio as string) * parseFloat(e.target.value);
 
         updateProductCart({id, newprecio})
     }
     
     useEffect(() => {
+      
         let sum = 0;
         sum = sum + parseFloat(product.product.precio as string);
 
@@ -34,15 +37,16 @@ const CardCart = ({product}: Prop) => {
 
     const handleDelete = async () => {
         deleteProductCart(id)
+        delet(id)
         setOpen(!open)
-        try {
+        /*try {
             const res = await axios.delete("http://localhost:3001/cart/delete/" + id);
             deleteProductCart(id)
             setOpen(!open)
         } catch (error) {
             console.log(error)
             setOpen(!open)
-        }
+        }*/
     }
     return (
             <CardCartProductStyle>
@@ -53,7 +57,7 @@ const CardCart = ({product}: Prop) => {
                                 <img src={product.product.imgurl} alt="" />
                             </div>
                             <div>
-                                    <span>{product.product.name}</span>
+                                    <p className='name'>{product.product.name}</p>
                             </div>
                         </div>
                         
@@ -61,7 +65,7 @@ const CardCart = ({product}: Prop) => {
                             {/*Poner el valor por unidad */}
                             {product.product.unit === "kg" 
                             ? <div>
-                                <select name="kilo" id="" onChange={(e) => handlerInputChange(e,product.id)}>
+                                <select name="kilo" id="" onChange={(e) => handlerInputChange(e,product.id as number)}>
                                     <option value="0.25">1/4</option>
                                     <option value="0.5">1/2</option>
                                     <option value="1">1</option>
@@ -72,7 +76,7 @@ const CardCart = ({product}: Prop) => {
                                 kg
                             </div>
                             : <div>
-                                <select name="cantidad" id="">
+                                <select name="cantidad" id="" onChange={(e) => handlerInputChange(e,product.id as number)}>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -83,14 +87,14 @@ const CardCart = ({product}: Prop) => {
                         }
 
                             <div>
-                                <span>$ {product.product.precio}</span>
+                                <p className='precio-text'>$ {product.product.precio}</p>
                             </div>
                         </div>
                     </div>
                     <DialogC open={open} handleClose={setOpen} deleteProduct={handleDelete}/>
                     <div onClick={() => {
                         setOpen(!open)
-                        setId(product.id)
+                        setId(product.id as number)
                         }} className='con-btndelete'>
                         <span className='btn-delete'>Eliminar</span>
                     </div>

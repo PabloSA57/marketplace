@@ -13,7 +13,7 @@ code {
 }
 
 
-article, div, footer, header, main, nav, section,span{
+article, div, footer, header, main, nav, section,span, figure{
   align-items: stretch;
   box-sizing: border-box;
   display: flex;
@@ -22,6 +22,11 @@ article, div, footer, header, main, nav, section,span{
   margin: 0;
   padding: 0;
   position: relative;
+}
+
+.map-container {
+  height: 100%;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar {

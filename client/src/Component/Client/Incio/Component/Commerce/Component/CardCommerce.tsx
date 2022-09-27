@@ -17,15 +17,15 @@ interface Prop {
         <CardCommerceStyle onClick={() => Func(Comercio.id)} activeColor={active === Comercio.id ? "#ffb331e5" : null}>
             <div className="con">
                 <div className="conimg">
-                    <img src={Comercio.img} alt="" />
+                    <img src={Comercio.imgurl} alt="" />
                 </div>
 
                 <div>
                     
-                    <Text size='12px' weight='200'>
+                    <Text size='12px' weight='400' lineheight='15px' color='#ADADAD'>
                         Tucuman
                     </Text>
-                    <Text size='14px' weight='500'>
+                    <Text size='15px' weight='600' lineheight='20px' color='#253D4E'>
                         {Comercio.name}
                     </Text>
                 </div>

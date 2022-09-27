@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
+import { Color } from "../../../../styles/color";
 
 export const  CardCartProductStyle = styled.div`
     width: 100%;
     height: 100px;
-    border-bottom: 1px solid black;
+    border-bottom: 0.1px solid #DADADA;
     align-items: center;
     justify-content: center;
     
@@ -30,7 +30,7 @@ export const  CardCartProductStyle = styled.div`
     .imgdiv img{
         width: 40px;
         height: 40px;
-        margin-right: 10px;
+        margin-right: 20px;
     }
 
     .con-btndelete {
@@ -40,5 +40,21 @@ export const  CardCartProductStyle = styled.div`
     .btn-delete {
         color: blue;
         cursor: pointer;
+    }
+
+    .name, .precio-text {
+        font-size: 20px;
+        color: ${Color.Text}
+    }
+
+    @media (max-width: 700px) {
+        height: 80px;
+        .name, .precio-text {
+            font-size: 15px;
+        }
+
+        .btn-delete {
+            font-size: 10px;
+        }
     }
     `

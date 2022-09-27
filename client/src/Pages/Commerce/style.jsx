@@ -6,4 +6,11 @@ export const  CommercePStyle = styled.div`
     height: 100vh;
     margin: auto;
     gap: 10px;
+
+
+    .btn-noti {
+        position: fixed;
+        bottom: 50px;
+        right: 10px;
+    }
 ` 

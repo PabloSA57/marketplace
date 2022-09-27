@@ -21,7 +21,23 @@ export const  CommerceStyle = styled.section`
         position: relative;
     }
 
+    .text-sub h3{
+        font-size: 20px;
+        font-weight: 525;
+        line-height: 20px;
+        color: #253D4E;
+    }
 
+    .btn-loca {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: none;
+        color: #ffffff;
+        background-color: orange;
+        font-size: 15px;
+        font-weight: 700;
+    }
 ` 
 export const CarouselCommerce = styled.section`
     

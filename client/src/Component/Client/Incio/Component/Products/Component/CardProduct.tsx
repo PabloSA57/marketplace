@@ -7,28 +7,30 @@ import axios from "axios";
 import { TodoContext } from "../../../../../../Context/Context";
 import { Product, ProductInfo } from "../../../../../../Interface/Commerce";
 import { Text } from "../../../../../../styles/style.general";
+import { useSesionStorage } from "../../../../../../hooks/useSesionStorage";
 interface Prop {
     product: ProductInfo
 }
 
 export const CardProduct = ({product}: Prop) => {
+    const {set} = useSesionStorage('productscart');
     const [loader , setLoader] = useState(false);
     const {todoState, addProductCart} = useContext(TodoContext);
-    const {productsCart} = todoState;
-
-    const addProductsToCart = async (product: ProductInfo) => {
+    const {productsCart, currentUser} = todoState;
+    console.log(productsCart)
+    const addProductsToCart = async (p: ProductInfo) => {
         
-        console.log(product)
         console.log(productsCart)
+        console.log(p)
             setLoader(true);
-            const bool =  productsCart.some(e => e.product.id === product.id);
+            const bool =  productsCart.some(e => e.id === p.id);
             console.log(bool)
             if(!bool ){
-                try {
+                /*try {
                     const addCart =await axios.post('http://localhost:3001/cart/addtocart', 
                     {
-                        idCliente: "ff48f3fc-cf4e-4fc3-8b35-51cd7e860b8f",
-                        idProductos: [product.id]
+                        idCliente: currentUser?.id,
+                        idProductos: [p.id]
                     })
                     addProductCart(product)
                     setLoader(false)
@@ -36,9 +38,10 @@ export const CardProduct = ({product}: Prop) => {
                 } catch (error) {
                     
                     console.log(error)
-                }
-                
-            
+                }**/
+                set(product)
+                addProductCart(product)
+                setLoader(false)
             }else{
                 setLoader(false)
                 alert('producto ya agregado')
@@ -52,13 +55,13 @@ export const CardProduct = ({product}: Prop) => {
                 <div className='conimg'><img src={product.product.imgurl} alt="" /></div>
                 <div className='con1'>
                     <div>
-                        <Text size='12px' weight='400' lineheight='15px'>
+                        <Text size='12px' weight='400' lineheight='15px' color='#ADADAD'>
                             {product.product.categoria}
 
                         </Text>
                     </div>
                     <div>
-                        <Text size='16px' weight='600' lineheight='20px'>
+                        <Text size='16px' weight='600' lineheight='20px' color='#253D4E'>
                             {product.product.name}
                         </Text>
                     </div>
@@ -71,7 +74,7 @@ export const CardProduct = ({product}: Prop) => {
                         </Text>
                     </div>
                     <button onClick={ () => addProductsToCart(product)}>
-                        {!loader ?<><IoCartOutline /> "Add"</>  : "agregando.."}
+                        {!loader ?<><IoCartOutline /> Add</>  : "agregando.."}
                     </button>
                 </div>
             </div>

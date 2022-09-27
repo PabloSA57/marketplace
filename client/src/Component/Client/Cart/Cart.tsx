@@ -5,52 +5,36 @@ import { CartStyle } from './style';
 import CardCart from './Component/CardCart';
 
 import { TodoContext } from '../../../Context/Context';
-import axios from 'axios';
+import { Button, Text } from '../../../styles/style.general';
+import { FormCart } from './FormCart';
+import { Commerce } from '../../../Interface/Commerce';
+import { useCart } from '../../../hooks/useCart';
+
 
 
 
 const Cart = () => {
-    const mercadopago = useMercadopago.v2('TEST-f8c59de6-e8ea-48fe-9a9f-700c98d5db77', {
-        locale: "es-AR"
-    });
-    const [total, setTotal] = useState(0);
-    const {todoState, updateProductCart} = useContext(TodoContext);
-    const {productsCart} = todoState;
-
-    useEffect(() => {
-        const totalHandler = () => {
-            let sum = 0;
-            console.log(productsCart)
-            for(let i =0; i < productsCart.length; i++){
-                sum = sum +  parseFloat(productsCart[i].product.precio as string)
-            }
+    const {active,total, handleStore} = useCart()    
     
-            setTotal(sum)
-        }
+    const {todoState} = useContext(TodoContext);
+    const {productsCart, storeCart, productCartStore} = todoState;
 
-        totalHandler()
-    }, [productsCart, updateProductCart])
+
+    const [typePayment, setTypePayment] = useState<'mp' | 'cash' | null>(null)
+    const [open, setOpen] = useState(false);
     
-    const handlePayer = async () => {
+    console.log(storeCart)
 
-        try {
-            const resMP = await axios.post("http://localhost:3001/mercadopago/checkout", productsCart);
-            console.log(resMP)
-            const idReference = resMP.data.body.id;
+    const handleOpen = (type: 'mp' | 'cash') => {
+        setOpen(true) 
+        setTypePayment(type)};
 
-            if(mercadopago){
-                mercadopago?.checkout({
-                    preference: {
-                        id: idReference,
-                    },
-                    autoOpen: true, // Habilita la apertura automática del Checkout Pro
-                })
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    
+    const handleClose = () => {
+        setOpen(false)
+        window.location.reload()
+    };
+
+
     return(
             <CartStyle>
                 <div>
@@ -59,15 +43,66 @@ const Cart = () => {
                 </div>
 
                 <div>
-                    {productsCart.map((e) => <CardCart product={e}/>)}
+
+                    {storeCart?.map(e =>  
+                        <Text
+                        onClick= {() => handleStore(e)}
+                            color={active?.id === e.id ? 'orange' : '#253D4E'}
+                            size='14px' 
+                            weight='400' 
+                            lineheight='20px' 
+                            cursor='pointer'
+                        >
+                            {e.name}
+                        </Text>
+                    )}
+                    
+                </div>
+                <div>
+                    {productCartStore.map((e) => <CardCart product={e}/>)}
                 </div>
 
-                <div>
-                    total: {total}
-                    <button onClick={handlePayer}>Pagar</button>
+                    <div className='con-pago'>
+                        <div className='con-pago1'>
+                            <span>Total    $ {total}</span>
+
+                            <div className='con-btn2'>
+                                <Button 
+                                    width='100%' 
+                                    height='40px' 
+                                    backgroundColor='#1070e4' 
+                                    colortext='#ffffff' 
+                                    onClick={() => handleOpen('mp')}
+                                >
+                                    Mercado pago
+                                </Button>
+                                
+
+                                <Button 
+                                    width='100%' 
+                                    height='40px' 
+                                    backgroundColor='#e48110' 
+                                    colortext='#ffffff' 
+                                    onClick={() => handleOpen('cash')}
+                                >
+                                    Efectivo
+                                </Button>
+                            </div>
+                            
+                    </div>
                 </div>
                 </div>
                 
+                <FormCart 
+                    open={open} 
+                    handleClose={handleClose}
+                    typePayment={typePayment}
+                    productsCart={productsCart}
+                    amount={total}
+                    store={active}
+                />
+
+            
             </CartStyle>
     )
 }

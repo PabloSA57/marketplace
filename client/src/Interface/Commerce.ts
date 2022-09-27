@@ -1,8 +1,14 @@
+import { User } from "./User";
+
+
 export interface Commerce{
     id:number;
     name: string;
-    img?: string;
-    ubicacion?: string;
+    imgurl?: string;
+    location?: string;
+    number_phone?: string;
+    lat?: number;
+    lon?: number;
 }
 
 
@@ -14,12 +20,37 @@ export interface Product {
     almacen?: string;
     precio?: string ;
     stock?: string | null;
-    unit?: "kg" | "cantidad";
+    unit?: "kg" | "lt";
 }
 
 export interface ProductInfo {
-    id: number;
+    id?: number;
     product: Product
-    almacen:Commerce,
+    almacen?:Commerce,
     
+}
+
+
+export interface DetailOrder {
+    id: number;
+    precio: number;
+    quantity: number;
+    product: Product;
+}
+
+export interface InfoCLient {
+    id: number;
+    direction: string;
+    lat: number;
+    lon: number;
+    number_phone: string;
+}
+export interface Order {
+    id: string;
+    amount: number;
+    state: string;
+    date: string;
+    user: User;
+    detailorders: DetailOrder[];
+    infoclient: InfoCLient
 }
