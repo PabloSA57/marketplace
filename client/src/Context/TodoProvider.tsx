@@ -26,6 +26,7 @@ const INITIAL_STATE: State = {
     hasStore: false,
     LatLng: {lng: sessionStorage.getItem('lng') as number | null, lat: sessionStorage.getItem('lat') as number | null,},
     orders: [],
+    allorders:[]
 }
 
 interface props{ 
@@ -119,6 +120,10 @@ export const TodoProvider = ({children} : props) => {
     const getOrder = (orders: Order[]) => {
         dispatch({type:'getOrders', payload: orders})
     }
+
+    const filterOrders = (f: string) => {
+        dispatch({type:'filterOrders', payload:f})
+    }
     return (
         <TodoContext.Provider value={{
             todoState,
@@ -142,7 +147,8 @@ export const TodoProvider = ({children} : props) => {
             selectStore,
             setCommerce,
             setHasStore,
-            getOrder
+            getOrder,
+            filterOrders
         }}>
             {children}
         </TodoContext.Provider>

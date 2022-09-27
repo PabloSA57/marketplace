@@ -27,6 +27,7 @@ type TodoAction =
     |{type: 'setCommerce', payload: Commerce}
     |{type: 'setHasStore', payload: boolean}
     |{type: 'getOrders', payload:Order[]}
+    |{type: 'filterOrders', payload:string}
 
 
 export const todoReducer = (state: State, action: TodoAction): State => {
@@ -195,7 +196,19 @@ export const todoReducer = (state: State, action: TodoAction): State => {
 
             return {
                 ...state,
-                orders: action.payload
+                allorders: action.payload,
+                orders: action.payload,
+                
+            }
+        case "filterOrders":
+            const allorders = state.allorders;
+            const filter = action.payload
+            console.log(filter)
+            const filterOrders = filter === "All"  ? allorders : allorders?.filter(e => e.state === filter);
+            console.log(filterOrders)
+            return {
+                ...state,
+                orders: filterOrders
             }
     }
 }
