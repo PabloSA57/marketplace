@@ -14,6 +14,9 @@ function App() {
   useSize();
   
   console.log(currentType)
+  useEffect(() => {
+    console.log('aqui App')
+  }, [])
   return (
       <Routes> 
 

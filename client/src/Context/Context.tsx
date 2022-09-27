@@ -29,8 +29,9 @@ export type TodoContextProps = {
 
     setCommerce: (c: Commerce) => void;
     setHasStore : (b: boolean) => void;
-
+    //Orders
     getOrder: (o: Order[]) => void;
+    filterOrders: (f: string) => void;
 }
 
 export const 

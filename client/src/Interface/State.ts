@@ -25,4 +25,5 @@ export interface State {
     LatLng: {lng: number | null, lat: number | null}
     //Order
     orders: Order[]
+    allorders: Order[]
 }
