@@ -13,11 +13,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 const Notification = () => {
     const {todoState, filterOrders} = useContext(TodoContext);
     const {orders} = todoState;
-    const [age, setAge] = useState('')
 
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
-    };
     console.log(orders)
 
     const handleFilter = (e: React.ChangeEvent<HTMLSelectElement> ) => {

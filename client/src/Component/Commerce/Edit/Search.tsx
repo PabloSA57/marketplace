@@ -9,7 +9,7 @@ export const Search = () => {
     return (
                         <div className='search'>
                             <input type="text" name="searchp" value={search} onChange={e => setSearch(e.target.value)}/>
-                            <button onClick={ () => searchProduct(search)}>Sea</button>
+                           
                         </div>
     )
 }

@@ -6,7 +6,8 @@ import AddProduct from './AddProducts/AddProduct';
 import { TodoContext } from '../../../Context/Context';
 import axios from 'axios';
 import { Text } from '../../../styles/style.general';
-import { Search } from './Search';
+import { Search } from '../../General/Search/Search';
+
 //import { Producto } from '../../../Interface/Comercio';
 
 const TypeArr = ["All", "Verduras", "Frutas", "Bebidas", "Golosinas", "Otros"]
@@ -48,7 +49,9 @@ const Edit = () => {
             <EditProductStyle>
                 <div className='con-edit'>
                     <div className='con1'>
-                        <Search />
+                        <div>
+                            <Search type='edit'/>
+                        </div>
                         <div className='btn-add'>
                             <button onClick={() => setActive(true)}>Add</button>
                         </div>
