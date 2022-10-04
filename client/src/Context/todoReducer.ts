@@ -7,7 +7,7 @@ type TodoAction =
     |{type: 'getProductToAdd', payload: Product[]}
     |{type: 'setCurrentUser', payload: User}
     |{type: 'filterTipo', payload: string}
-    |{type: 'searchProduct', payload: string}
+    |{type: 'searchProduct', payload: {name:string, type:string}}
     |{type: 'getComercios', payload: Commerce[]}
     |{type: 'changePhone', payload: boolean}
     |{type: 'token', payload: string | null}
@@ -44,11 +44,11 @@ export const todoReducer = (state: State, action: TodoAction): State => {
                 allproducts: action.payload,
                 productInfo: action.payload
             }
-            case "getProductToAdd":
-                return {
-                    ...state,
-                    products: action.payload
-                }
+        case "getProductToAdd":
+            return {
+                ...state,
+                products: action.payload
+            }
         case "filterTipo":
             const allproducts = state.allproducts;
             const tipo = action.payload;
@@ -58,10 +58,15 @@ export const todoReducer = (state: State, action: TodoAction): State => {
                 productInfo: filterTipo as ProductInfo[] 
                 }
         case "searchProduct":
-            const productI = state.productInfo;
-            
+            let productsToSearch: ProductInfo[]=[];
+            const {type,name} = action.payload;
+            if(type === 'edit'){
+                productsToSearch = state.allproducts as ProductInfo[];
+            }
+            //const productI = state.productInfo;
+            console.log(productsToSearch)
             //filtrar productos que comience con lo que manda
-            const filterName = productI.filter(e => e.product.name === action.payload)
+            let filterName =  productsToSearch?.filter(e => e.product.name.toUpperCase().startsWith(name.toUpperCase()))
             return {
                 ...state,
                 productInfo: filterName as ProductInfo[]

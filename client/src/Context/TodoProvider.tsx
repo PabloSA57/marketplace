@@ -61,9 +61,10 @@ export const TodoProvider = ({children} : props) => {
         dispatch({type: "deleteProduct", payload: id})
     }
 
-    const searchProduct = (name: string) => {
-        dispatch({type: 'searchProduct', payload: name})
+    const searchProduct = (name: string, type: string) => {
+        dispatch({type: 'searchProduct', payload: {name, type}})
     }
+
     const getComercios = (c: Commerce[]) => {
         dispatch({type: "getComercios", payload: c})
     }
