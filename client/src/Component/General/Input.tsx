@@ -1,6 +1,6 @@
 
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Path, UseFormRegister, FieldErrorsImpl, FieldError, ValidationRule} from "react-hook-form";
 import { InputStyle } from './style.input';
 
@@ -13,20 +13,29 @@ interface IFormValues {
     Nombre?: string,
 }
 
+interface IFormValuesUpdateStore {
+    Direccion?: string,
+    Telefono?: string,
+    Nombre?: string,
+    }
 
 type InputProps = {
-    label: Path<IFormValues>;
-    register: UseFormRegister<IFormValues>;
+    label: Path< IFormValues >;
+    register: UseFormRegister< IFormValues>;
     required: boolean;
     pattern?: ValidationRule<RegExp>
     errors: FieldError | undefined
     type: string
+    valueInp?: string
 };
   // The following component is an example of your existing Input Component
-    export const Input = ({ label, register, required, errors, type,pattern }: InputProps) => {
-        console.log(errors)
+    export const Input = ({ label, register, required, errors, type,pattern, valueInp }: InputProps) => {
+        const [value, setValue] = useState(valueInp)
 
-        console.log(pattern)
+        const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value)
+        }
+
         return (
         <>
             <InputStyle>
@@ -36,7 +45,10 @@ type InputProps = {
                         :<input
                             type={type}
                             {...register(label, {required})}
-                            className={errors !== undefined ? "inpactive inpgeneral" : "inp inpgeneral"} />
+                            className={errors !== undefined ? "inpactive inpgeneral" : "inp inpgeneral"}
+                            value={value}
+                            onChange={ handleChange}
+                            />
                     }       
                 
                     {errors !== undefined && <p className='message'>{errors.message}</p>}

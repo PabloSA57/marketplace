@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const  ConfigureStyle = styled.div` 
+export const  ConfigureStyle = styled.section` 
     width: 50%;
     height: 100vh;
     margin-top: 20px;
@@ -17,6 +17,9 @@ export const  ConfigureStyle = styled.div`
         cursor: pointer;
     }
 
+    @media only screen and (max-width: 850px){
+        width: 90%;
+    }
     @media only screen and (max-width: 750px){
         width: 100%;
     }

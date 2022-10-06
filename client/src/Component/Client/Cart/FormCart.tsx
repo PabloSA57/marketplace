@@ -7,21 +7,21 @@ import { Input } from '../../General/Input'
 import { ModalUi } from '../../General/Modal'
 
 import { useForm, SubmitHandler, FieldError} from "react-hook-form";
+
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 
 import Switch from '@mui/material/Switch';
 import { addQuanty } from '../../../adapter/cart.adapter'
 import { useMepa } from '../../../hooks/useMepa'
 
-
-import { useMercadopago } from 'react-sdk-mercadopago';
-import { convertToObject } from 'typescript'
 import { Order } from './Component/Order/Order'
 import { useSesionStorage } from '../../../hooks/useSesionStorage'
 import { Spiner } from '../../General/Spiner/Spiner'
 import { FormStyle } from './style.form'
 import { Button } from '../../../styles/style.general'
+import { schemaFormCart } from '../../../utils/schemayup'
+import { IFormValues } from '../../../Interface/Form'
+
 interface Prop {
     open: boolean,
     handleClose?: () => void,
@@ -33,19 +33,8 @@ interface Prop {
 
 
 
-interface IFormValues {
-    Direccion?: string,
-    Telefono?: string,
-    Descripcion?: string,
-    Nombre?: string,
-    }
 
-const phoneRegex = new RegExp("(559)[0-9-]{13,14}");
-const schema = yup.object({
-    Direccion: yup.string().required("Escribe una direccion"),
-    Descripcion: yup.string(),
-    Telefono: yup.string().matches(phoneRegex, "Ingrese un numero valido").required("Escribe un numero de Telefono"),
-}).required();
+
 
 export const FormCart = ({open, handleClose, typePayment, productsCart, store, amount}: Prop) => {
     const {openMP} = useMepa();
@@ -58,41 +47,37 @@ export const FormCart = ({open, handleClose, typePayment, productsCart, store, a
 
     const [stateOrder, setStateOrder] = useState({aproved: false, error: false, loading: false})
 
-    const [saludo, setSaludo] = useState('hola')
+   // const [saludo, setSaludo] = useState('hola')
 
     const [productQuantity, setProductQuantity] = useState<ProductInfo[]>()
 
     const { register, formState: { errors }, handleSubmit } = useForm<IFormValues>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schemaFormCart)
     });
 
     const [checked, setChecked] = React.useState(true);
     
-    useEffect(() => {
+   /* useEffect(() => {
         const product = addQuanty(allproductsCart, productsCart)
 
         setProductQuantity(product)
-    }, [])
+    }, [])*/
 
         const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             setChecked(event.target.checked);
             console.log(event.target.checked)
         };
     
-    const onSubmit: SubmitHandler<IFormValues> = async (data) => {
-    console.log(data)
-    console.log('onSUbmit')
-        setStateOrder({aproved: false, error: false, loading: true})
+    const onSubmit: SubmitHandler<IFormValues> = (data) => {
+        console.log('onSubmit: ', data)
+       /* setStateOrder({aproved: false, error: false, loading: true})
         const newObj = {direction: data.Direccion, number_phone: data.Telefono}
-        console.log(newObj)
         const infoClient = {...newObj, lat, lng, id :currentUser?.id}
-        console.log(infoClient)
         const storeId = store?.id
         
         const products = addQuanty(allproductsCart, productsCart)
         try {
             const res = await AddOrder({products, storeId, amount, infoClient, typePayment,checked})
-            console.log(res)
                 if(res){
                     console.log('aqui toy')
                     addOrder(res)
@@ -101,7 +86,7 @@ export const FormCart = ({open, handleClose, typePayment, productsCart, store, a
         } catch (error) {
             setStateOrder({aproved: false, error: true, loading: false})
             console.log(error)
-        }
+        }*/
     };
 
     return (

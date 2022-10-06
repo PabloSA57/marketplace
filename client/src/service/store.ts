@@ -38,3 +38,28 @@ export const getStoreAround = async (lat: number, lng: number) => {
         return error as any
     }
 }
+
+export const updateStore = async (newdata: any, file: any, idStore: number) => {
+    //deveria mandar el jwt para verificar el idStore
+    let obj: any = {idStore}
+
+    if(newdata && !file){
+        console.log('si newdate, no file')
+        obj = {...obj, ...newdata}
+    }else if(file && !newdata){
+        console.log('no newdate, si file')
+        obj = {...obj, newImage: file}
+    }else {
+        obj = {...obj, newImage: file, ...newdata}
+        console.log('si, ambos')
+    }
+
+    console.log(obj)
+    /*try {
+        const resp = await axios.put(`${API_BASE_URL}/updateStore`, obj);
+
+        return resp as any
+    } catch (error) {
+        return error as any
+    }*/
+}
