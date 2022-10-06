@@ -89,6 +89,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
     }, [locationUpdate])
 
         useEffect(() => {
+            if(from === 'formcart'){
             map.current.on("load", () => {
                 console.log('load map')
                 const lngLat= LngLatClient !== undefined && LngLatClient.length > 1 ? LngLatClient : [markerLng, markerLat];
@@ -97,7 +98,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                 console.log(Boolean(LngLatClient), LngLatClient)
                 formLat(markerLat)
                 formLng(markerLng)
-                    if(from === 'formcart'){
+                    
                         if(LngLatClient && LngLatStore){
                             console.log('aqqqq', lngLat)
                             const market1 = new mapboxgl.Marker({
@@ -120,7 +121,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                                     const market2 = new mapboxgl.Marker()
                                         .setLngLat(LngLatStore)
                                         .addTo(map.current as any);
-                        }
+                        
                     }
 
                     /*const market2 = new mapboxgl.Marker()
@@ -128,7 +129,30 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                         .addTo(map.current as any);*/
 
                     
-            })
+            })}
+        }, [])
+
+        useEffect(() => {
+            if('updateStore'){
+                console.log(LngLatStore)
+                map.current.on("load", () => { 
+                    const market1 = new mapboxgl.Marker({
+                        draggable: true
+                        })
+                        .setLngLat(LngLatStore as [number, number])
+                        .addTo(map.current as any);
+
+                        const  onDragEnd = () => {
+                            const lngLat = market1.getLngLat();
+                            
+                            console.log(lngLat.lng, lngLat.lat)
+                            formLat(lngLat.lat)
+                            formLng(lngLat.lng)
+                            }
+
+                            market1.on('dragend', onDragEnd);
+                })
+            }
         }, [])
 
     const myLocation = () => {

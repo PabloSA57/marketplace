@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const  CommercePStyle = styled.div`
+export const  CommercePStyle = styled.main`
     flex-direction: row;
     width: 90%;
     height: 100vh;
