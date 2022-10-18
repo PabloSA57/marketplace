@@ -90,7 +90,6 @@ const GetStoresAround = async (req, res) => {
 
 const HasStore = async (req, res) => {
     const {user} = req._user;
-    console.log("hasStore", user.id)
     try {
         const resStore = await Store.findOne({where: {userId: user.id}, include: [{model: User, attributes:["id", "name", "lastname", "email"]}]});
         res.json({store: resStore ,hasStore: true})
@@ -104,7 +103,6 @@ const UpdateStore = async (req, res) => {
 
     const store = await Store.findByPk(idStore);
 
-    console.log(store.id)
     const newObj = {...rest}
     if(newImage){
         const imageResp = await cloudinary.uploader.upload(newImage, {

@@ -8,7 +8,8 @@ module.exports = (sequelize) => {
             primaryKey: true,
         },
         date:{
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         },
         amount:{
             type: DataTypes.DOUBLE

@@ -53,13 +53,17 @@ const PostCode = async (req, res) => {
     }
 }
 
+let otrafuncion = (socket) => (msg) => {
+    socket.on('Saludo', msg)
+}
+let functionSocket = (socket) => () => {return socket}
 
 const Checkout = async (req, res) => {
     const {products, storeId, amount, infoClient, typePayment, delivery} = req.body;
 
     console.log(delivery, storeId)
     const {id:idclient,lng:lon, ...restClient} = infoClient;
-    const objOrder = {storeId, amount, type_payment:typePayment, state: 'pendding', userId: idclient, delivery }
+    const objOrder = {storeId, amount, type_payment:typePayment, state: 'Pendiente', userId: idclient, delivery }
 
     if(typePayment === "cash"){
 
@@ -84,7 +88,7 @@ const Checkout = async (req, res) => {
 
             const condition = GetOrderAux(createOrder.id, "id")
             const resp = await Order.findAll(condition)
-
+            otrafuncion(functionSocket(), 'hola')
             res.json(resp)
         } catch (error) {
             console.log(error)
@@ -189,9 +193,15 @@ const Notification = async (req, res) => {
         console.log(resp)
     }*/
 }
+
+const routePrueba = (req, res) => {
+
+}
+
 module.exports = {
     GetRedirect,
     PostCode,
     Checkout, 
-    Notification
+    Notification,
+    functionSocket
 }

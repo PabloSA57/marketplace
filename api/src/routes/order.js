@@ -2,11 +2,12 @@ const {Router} = require ("express");
 
 
 const router = Router();
-const {GetOrder, CancelOrder, InfoSele} = require('../controllers/order.controller');
+const {GetOrder, CancelOrder, InfoSele, UpdateStateOrder, CreateOrder} = require('../controllers/order.controller');
 
 
 router.get('/getorder/:storeId', GetOrder)
-router.put('/cancelorder/:id', CancelOrder)
+router.put('/updateorder/:id', UpdateStateOrder)
 router.get('/infosel/:storeId', InfoSele)
+router.post('/createorder', CreateOrder)
 
 module.exports = router;

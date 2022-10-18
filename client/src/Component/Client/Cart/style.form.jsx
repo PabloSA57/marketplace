@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
 
 export const FormStyle = styled.div`
@@ -6,7 +7,7 @@ export const FormStyle = styled.div`
     padding: 8px;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: ${Color.Pricipal};
     display: block;
     border-radius: 15px;
 

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import { TodoContext } from '../../../Context/Context';
 import Footer from '../../General/Footer/Footer';
 import Commerce from './Component/Commerce/Commerce';
 import Header from './Component/Header/Header';
@@ -6,14 +7,18 @@ import Presentation from './Component/Presentation/Presentation';
 import Products from './Component/Products/Products';
 
 const Inicio = () => {
+
     return (
-        <main>
+
+        <>
             <Header />
+        <main>
             <Presentation />
             <Commerce />
             <Products />
-            <Footer />
         </main>
+            <Footer />
+        </>
     )
 }
 

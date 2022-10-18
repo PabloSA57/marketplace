@@ -19,9 +19,9 @@ export const AddOrder  = async ({products, storeId, amount, infoClient, typePaym
 
 const API_BASE_URL_ORDER = "http://localhost:3001/order";
 
-export const CancelOrder = async (id: string) => {
+export const UpdateOrder = async (id: string, state: string) => {
     try {
-        const res = await axios.put(`${API_BASE_URL_ORDER}/cancelorder/${id}`)
+        const res = await axios.put(`${API_BASE_URL_ORDER}/updateorder/${id}`, {state})
 
         return res
     } catch (error) {

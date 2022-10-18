@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
 export const  FormStoreStyle = styled.div`
     width: 100%;
     height: auto;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: ${Color.One};
     padding: 25px;
     box-shadow: 5px 5px 5px 0px lightgray;
 
@@ -40,7 +41,7 @@ export const  FormStoreStyle = styled.div`
 
     .btn-sb {
         height: 39px;
-        background-color: #e1842d;
+        background-color: ${Color.One};
         border: none;
     }
 

@@ -15,7 +15,7 @@ const {
 
 router.post('/addproductstore', AddProductToStore);
 router.put('/updateproduct', UpdateProduct);
-router.delete('/deleteproduct', DeleteProduct);
+router.delete('/deleteproduct/:id', DeleteProduct);
 router.get('/bestproducts/:storeId', BestSellingProducts)
 
 router.get('/getproductstore/:idstore', GetProductOfStore);

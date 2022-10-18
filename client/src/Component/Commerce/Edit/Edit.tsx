@@ -28,14 +28,19 @@ const Edit = () => {
     useEffect(() => {
         
         const ProdcutosAdd = async () => {
-
-            if(mycommerce !== null){
-                console.log('fproduct')
-                const p = await axios.get(`http://localhost:3001/product-store/allproductstore/${mycommerce?.id}`);
-                console.log(p)
-
-                if(p.status === 200) getProductos(p.data);
+            try {
+                if(mycommerce !== null){
+                    console.log('fproduct')
+                    const p = await axios.get(`http://localhost:3001/product-store/allproductstore/${mycommerce?.id}`);
+                    console.log(p)
+    
+                    if(p.status === 200) getProductos(p.data);
+                }
+            } catch (error) {
+                console.log(error)
             }
+
+            
         }
     
         ProdcutosAdd()
@@ -79,8 +84,10 @@ const Edit = () => {
 
                     <div className='con3'>
                         <div className='con31'>
-                            { productInfo?.map(e =>  <CardProduct producto={e} activeProduct={activeEdit}
-                            handlerActive={handlerActive}
+                            { productInfo?.map(e =>  <CardProduct 
+                                                        producto={e} 
+                                                        activeProduct={activeEdit}
+                                                        handlerActive={handlerActive}
                             />)}
                             
                             
@@ -89,7 +96,7 @@ const Edit = () => {
                 </div>
                 
                 <>
-                { active ? <AddProduct /> : null}
+                { active ? <AddProduct setActiveModal={setActive}/> : null}
                 </>
                 
 

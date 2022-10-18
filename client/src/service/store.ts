@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { Commerce } from "../Interface/Commerce";
 const API_BASE_URL = "http://localhost:3001/store";
 
 

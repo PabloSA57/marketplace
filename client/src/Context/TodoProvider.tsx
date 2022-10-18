@@ -1,4 +1,4 @@
-import {useReducer} from 'react';
+import React, {useReducer} from 'react';
 
 import {TodoContext} from './Context';
 import {todoReducer} from './todoReducer';
@@ -26,7 +26,8 @@ const INITIAL_STATE: State = {
     hasStore: false,
     LatLng: {lng: sessionStorage.getItem('lng') as number | null, lat: sessionStorage.getItem('lat') as number | null,},
     orders: [],
-    allorders:[]
+    allorders:[],
+    socket: null
 }
 
 interface props{ 
@@ -125,6 +126,17 @@ export const TodoProvider = ({children} : props) => {
     const filterOrders = (f: string) => {
         dispatch({type:'filterOrders', payload:f})
     }
+
+    //Socket
+    const setSocket = (socket: any) => {
+        dispatch({type:'setSocket', payload:socket})
+    }
+    
+    //Notification
+    const filterNotication = (obj: {state: string, fecha: string, pay: string}) => {
+        dispatch({type:'filterNotification', payload:obj})
+    }
+
     return (
         <TodoContext.Provider value={{
             todoState,
@@ -149,7 +161,9 @@ export const TodoProvider = ({children} : props) => {
             setCommerce,
             setHasStore,
             getOrder,
-            filterOrders
+            filterOrders,
+            setSocket,
+            filterNotication
         }}>
             {children}
         </TodoContext.Provider>

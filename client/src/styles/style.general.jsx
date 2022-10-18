@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Color } from "./color";
 
 export const Text = styled.span.attrs(props => ({
     size:props.size,
@@ -16,20 +16,43 @@ export const Text = styled.span.attrs(props => ({
 
 `
 
+export const ChipFilter = styled.button.attrs(props => ({
+    color: props.color || "black",
+    backgroundcolor: props.backgroundcolor || 'white',
+}))`
+    color: ${props => props.color};
+    cursor: ${props => props.cursor};
+    background-color: ${props => props.backgroundcolor};
+    padding: 3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    min-width: 50px;
+
+`
+
 export const Button = styled.button.attrs(props => ({
     width: props.width,
     height: props.height,
-    backgroundColor: props.backgroundColor,
-    colortext: props.colortext || "white"
+    colortext: props.colortext 
 }))`
     width: ${props => props.width};
     height: ${props => props.height};
-    background-color: ${props => props.backgroundColor};
-    color: ${props => props.colortext};
+    background-color: ${props => props.primary ? Color.One : Color.Two};
+    color: ${props => props.colortext || Color.Pricipal};
     border: none;
     box-shadow: 5px 5px 5px 0px lightgray;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
+
 `
+export const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+`
+
+
+

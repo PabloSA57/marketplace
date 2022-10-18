@@ -5,11 +5,15 @@ import MapModal from './Component/Map/MapModal';
 import { CommerceStyle, CarouselCommerce } from './style';
 
 import { BiLocationPlus } from "react-icons/bi";
+import { Mapbox } from '../../../../../lib/mapbox/Mapbox';
 
     const Commerce = () => {
         const {todoState, selectStore} = useContext(TodoContext);
         const {commerce} = todoState;
         const [active, setActive] = useState<number>(1);
+
+        const [lng, setLng] = useState<number | null>(null)
+        const [lat, setLat] = useState<number | null>(null)
 
         const [open, setOpen] = useState(false);
         const handleOpen = () => setOpen(true);
@@ -26,23 +30,21 @@ import { BiLocationPlus } from "react-icons/bi";
 
         return (
         <CommerceStyle> 
-            <div className='div-row'>
-                <div className='text-sub'>
-                    <h3>Comercios</h3>
-                </div>
-
-                <div>
-                    <button className='btn-loca' onClick={handleOpen}><BiLocationPlus /></button>
-                </div>
+            <div className='con-mapbox'>
+                <Mapbox
+                    formLat={setLat}
+                    formLng={setLng}
+                    from='searchstore'
+                />
             </div>
-            <MapModal open={open} handleClose={handleClose}/>
-            <div className='concardcomercio'>
-            <CarouselCommerce>
+
+            <div className='con-commerce'>
+                <CarouselCommerce>
                 { commerce.length > 0 
                     ? commerce?.map((c) => <CardCommerce Comercio={c} key={c.id} Func={select} active={active}/>)
                     : <div>No hay comercios cerca tuyo</div>
                 }
-            </CarouselCommerce>
+                </CarouselCommerce>
             </div>
         </CommerceStyle>
         )

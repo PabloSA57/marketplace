@@ -2,30 +2,71 @@ import React, {useContext, useEffect, useState} from 'react'
 import { CardOrder } from './CardOrder/CardOrder';
 import { NotiStyle } from './style';
 import { TodoContext } from '../../../Context/Context';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { ChipFilter } from '../../../styles/style.general';
 
 
+const stateNoti = ['Aprobada', 'Cancelada', 'Pendiente']
+const fechaNoti = ['Hoy', 'Ayer', 'Mes']
+const paymentNoti = ['Mercado Pago', 'Efectivo']
 
 const Notification = () => {
-    const {todoState, filterOrders} = useContext(TodoContext);
+    const {todoState, filterNotication} = useContext(TodoContext);
     const {orders} = todoState;
+    const [filter, setFilter] = useState({
+        state: 'Aprobada',
+        fecha: 'Hoy',
+        pay: 'Mercado Pago'
+    })
 
-    console.log(orders)
 
-    const handleFilter = (e: React.ChangeEvent<HTMLSelectElement> ) => {
-        console.log(e.target.value)
-        filterOrders(e.target.value)
-    }
+    useEffect(() => {
+        console.log(orders)
+        console.log(filter)
+        filterNotication(filter)
+        console.log(orders)
+    }, [filter])
+
+    const handleFilter = (valor: string, type: string ) => setFilter({...filter, [type]: valor})
+    
+
     return (
             <NotiStyle>
                 <div>
                     <h3>Notificaciones</h3>
+                    <div className='filter'>
+                        <div className='cont-filter'>
+                            {
+                                stateNoti.map(e => 
+                                <ChipFilter 
+                                    onClick={() => handleFilter(e, "state")}
+                                    backgroundcolor={filter.state === e ? 'orange' : null}
+                                    color={filter.state === e ? 'white' : null}
+                                >{e}</ChipFilter>)
+                            }
+                        </div>
 
-                    <div className='con-filter'>
+                        <div className='cont-filter'>
+                            {
+                                fechaNoti.map(e => 
+                                <ChipFilter 
+                                    onClick={() => handleFilter(e, "fecha")}
+                                    backgroundcolor={filter.fecha === e ? 'orange' : null}
+                                    color={filter.fecha === e ? 'white' : null}
+                                >{e}</ChipFilter>)
+                            }
+                        </div>
+                        <div className='cont-filter'>
+                            {
+                                paymentNoti.map(e => 
+                                <ChipFilter 
+                                    onClick={() => handleFilter(e, "pay")}
+                                    backgroundcolor={filter.pay === e ? 'orange' : null}
+                                    color={filter.pay === e ? 'white' : null}
+                                >{e}</ChipFilter>)
+                            }
+                        </div>
+                    </div>
+                    {/* <div className='con-filter'>
                         <div className='filter'> 
                             <select
                             onChange={handleFilter}
@@ -45,9 +86,9 @@ const Notification = () => {
                                 State
                             </label>
                         </div>
-                    </div>
+    </div> */}
                 </div>
-                {orders.length > 1 
+                {orders.length > 0 
                 ? orders.map(order => <CardOrder orders={order}/>)
                 :<div>No tiene ordenes</div>
             }

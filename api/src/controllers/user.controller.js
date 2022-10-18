@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const RegisterAux = async (body) => {
-    console.log(body)
+
     let password = bcrypt.hashSync(body.password, Number.parseInt(10))
     try {
         const user = await   User.create({
@@ -73,7 +73,6 @@ const Authentication = async (req, res) => {
 
     try {
         const resUser = await   User.findOne({where:{id: user.id}})
-        console.log(resUser)
 
         resUser === null 
             ? res.status(500).json({message: 'user eliminado'}) 

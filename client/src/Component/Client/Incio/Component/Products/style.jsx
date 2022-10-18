@@ -1,8 +1,12 @@
 import styled from "styled-components";
+import { Color } from "../../../../../styles/color";
 
 export const ProductsStyle = styled.div`
     width: 70%;
     margin: auto;
+    background-color: ${Color.Pricipal};
+    padding: 1rem;
+    box-sizing: border-box;
 
     @media (max-width: 900px) {
             width: 90%;
@@ -23,18 +27,6 @@ export const ProductsStyle = styled.div`
     overflow-y: hidden;
     gap: 7px;
     }
-    .contain {
-        flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    gap: 2.6%;
-    min-height: 300px;
 
-  
-    }
-
-    @media (max-width: 768px) {
-        .contain {gap: 10%;}
-    }
 
 `

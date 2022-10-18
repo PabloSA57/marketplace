@@ -6,7 +6,7 @@ import CardProduct from './Component/CardProduct/CardProduct';
 
 import axios from 'axios';
 
-import { Text } from '../../../../styles/style.general';
+import { Text, Wrapper } from '../../../../styles/style.general';
 import { TodoContext } from '../../../../Context/Context';
 import { Product } from '../../../../Interface/Commerce';
 /*interface Prop{
@@ -15,9 +15,14 @@ import { Product } from '../../../../Interface/Commerce';
 
 const TypeArr = ["All", "Verduras", "Frutas", "Bebidas", "Golosinas", "Otros"]
 
-export const AddProduct = () => {
-    const {getProductos,updateTipo, todoState} =  useContext(TodoContext);
-    const {productInfo, mycommerce} = todoState;
+interface Prop {
+    setActiveModal: React.Dispatch<React.SetStateAction<boolean>>
+}
+export const AddProduct = ({setActiveModal}: Prop) => {
+
+    const {updateTipo, todoState} =  useContext(TodoContext);
+    const {mycommerce} = todoState;
+    const [products, setProducts] = useState([]);
 
     const [active, setActive] = useState('All')
     const [arrayProductSelect, setArrayProductSelect] = useState<number[]>([]);
@@ -42,9 +47,14 @@ export const AddProduct = () => {
 
     useEffect(() => {
         const getProductToAddf = async () => {
-            const res = await axios.get("http://localhost:3001/product-store/producttoadd/" + mycommerce?.id);
+            try {
+                const res = await axios.get("http://localhost:3001/product-store/producttoadd/" + mycommerce?.id);
             console.log(res);
-            getProductos(res.data)
+                setProducts(res.data)    
+            } catch (error) {
+                console.log(error)
+            }
+            
         }
 
         getProductToAddf()
@@ -69,7 +79,7 @@ export const AddProduct = () => {
     
     const closeComponet = () => {
         //activeC(false);
-        window.location.reload();
+        setActiveModal(false)
     }
     return (
             <AddProductStyle>
@@ -99,15 +109,19 @@ export const AddProduct = () => {
                                     )}
                                 </div>
                             </div>
+                            
+                            <Wrapper>
+                                {products?.map(producto => <CardProduct producto={producto} 
+                                    funcSelect={handlerSelect}
+                                    searchId={searchId}
+                                    found={found}
+                                    />)}
+                            </Wrapper>
 
-                            <div className='con-edit13'>
-                                {productInfo?.map(producto => <CardProduct producto={producto} 
-                                funcSelect={handlerSelect}
-                                searchId={searchId}
-                                found={found}
-                                />)}
-                            </div>
-                            {arrayProductSelect.length > 0 
+                            
+                        </div>
+
+                        {arrayProductSelect.length > 0 
                                 ?<button 
                                 className='btn-add'
                                 onClick={addProduct}
@@ -115,7 +129,6 @@ export const AddProduct = () => {
                                 Agregar {arrayProductSelect.length}
                                 </button> 
                                 : null}
-                        </div>
                     </div>
                 </div>
             </AddProductStyle>

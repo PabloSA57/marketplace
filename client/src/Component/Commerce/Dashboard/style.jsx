@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
-export const  DashboardStyle = styled.div` 
+export const  DashboardStyle = styled.section` 
     width: 50%;
     height: 100vh;
 
@@ -13,24 +14,28 @@ export const  DashboardStyle = styled.div`
     .con1{
         width: 100%;
         height: 200px;
-        background-color: #C5EAD9;
-        justify-content: center;
+        background-color: ${Color.Two};
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: row;
     }
-
+    .svg-dash {
+        width: 50%;
+        height: auto;
+    }
     .con111{
         font-size: 34px;
         font-weight: 400;
     }
 
     .con21{
-        width: 95%;
-        margin: auto;
+        width: 100%;
+        
     }
 
     .con2 {
-        background-color: aliceblue;
+        
         padding-bottom: 15px;
-        background-color: #f9f9f9;
         border-radius: 20px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -38,9 +43,7 @@ export const  DashboardStyle = styled.div`
 
     .con3 {
         width: 100%;
-        background-color: #f9f9f9;
-        border-radius: 20px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        //box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         padding: 5px;
         min-height: 300px;
         
@@ -48,7 +51,7 @@ export const  DashboardStyle = styled.div`
 
     .subtitulos-dh {
         margin: 0;
-        color: #757171;
+        color: ${Color.Text};
     }
 
     .con22{
@@ -60,7 +63,7 @@ export const  DashboardStyle = styled.div`
     .card-acti{
         width: 40%;
         height: 100px;
-        background-color: #ffffff;
+        background-color: #701f1f;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
@@ -69,5 +72,9 @@ export const  DashboardStyle = styled.div`
 
     @media only screen and (max-width: 850px){
         width: 90%;
+    }
+
+    @media only screen and (max-width: 750px){
+        width: 100%;
     }
 ` 

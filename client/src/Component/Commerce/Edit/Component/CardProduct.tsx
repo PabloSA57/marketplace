@@ -2,6 +2,8 @@ import React, { useRef, useState, useContext } from 'react'
 import { CardProductStyle } from './style';
 
 import { RiEditLine, RiDeleteBinLine } from "react-icons/ri";
+import { BiSave } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
 
 import axios from 'axios';
 import DialogC from './Component/Dialog';
@@ -27,6 +29,15 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
         precio: ''
     })
     const [open, setOpen] = useState<boolean>(false);
+    const [stateDelete, setStateDelete] = useState<{
+        aproved: boolean,
+        loading: boolean,
+        error: boolean,
+    }>({
+        aproved: false,
+        loading: false,
+        error: false,
+    });
 
     const check= useRef<HTMLInputElement>(null);
 
@@ -77,24 +88,38 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
 
     const deleteProducto = async () => {
         console.log(activeProduct[1])
-
+            setStateDelete({
+                loading: true,
+                aproved: false,
+                error: false,
+            })
             setLoader(true);
             try {
-                const res = await axios.delete(`http://localhost:3001/deleteproduct/${activeProduct[1]}`)
+                const res = await axios.delete(`http://localhost:3001/product-store/deleteproduct/${activeProduct[1]}`)
                 console.log(res)
                 setLoader(false);
                 deleteProduct(activeProduct[1]);
-                setOpen(false);
+                //setOpen(false);
                 handlerActive([0,0]);
+                setStateDelete({
+                    loading: false,
+                    aproved: true,
+                    error: false,
+                })
             } catch (error) {
                 console.log(error)
+                setStateDelete({
+                    loading: false,
+                    aproved: false,
+                    error: true,
+                })
             }
     }
     return (
         <CardProductStyle>
                 {activeProduct[0] === producto.id 
-                ?   <div>
-                        <fieldset>
+                ?   <div className='state-product'>
+                        <fieldset >
                             {producto.product.stock === "stock" ? <input type="radio"
                             onChange={changeRadio}
                             ref={check}
@@ -169,26 +194,32 @@ const CardProduct = ({producto, activeProduct, handlerActive}: Prop) => {
                     <div 
                     className={activeProduct[1] === producto.id ? "e-d-btn active" : "e-d-btn"}
                     onClick={() => handlerActive([0,producto.id as number])}>
-                        <button onClick={() => {
+                        <span onClick={() => {
                                 setOpen(!open)
                                 handlerActive([0,producto.id as number])
                                 }}>
                                 <RiDeleteBinLine />
-                        </button>
+                        </span>
                     </div>
                     
-                    <DialogC open={open} handleClose={setOpen} deleteProduct={deleteProducto}/>
+                    <DialogC 
+                        open={open} 
+                        handleClose={setOpen} 
+                        deleteProduct={deleteProducto}
+                        state={stateDelete}
+                        />
 
                     {activeProduct[0] === producto.id 
-                    ?<div>
-                        <button onClick={(e) => updateProduct(e,producto.id as number)}>{loader ? "c.." :"Save"}</button>
+                    ?<div className='btn-save'>
+                        <button 
+                        onClick={(e) => updateProduct(e,producto.id as number)}>{loader ? "c.." :<BiSave />}</button>
                     </div>
                     : null    
                     } 
 
                     {activeProduct[0] === producto.id 
-                    ?<div>
-                        <button onClick={cancelEdit}>X</button>
+                    ?<div className='btn-close'>
+                        <span onClick={cancelEdit}><AiOutlineClose /></span>
                     </div>
                     : null    
                     }

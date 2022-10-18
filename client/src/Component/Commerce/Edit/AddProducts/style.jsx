@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Color } from "../../../../styles/color";
 
 export const  AddProductStyle = styled.div`
     position: fixed;
@@ -52,5 +53,25 @@ export const  AddProductStyle = styled.div`
         margin-bottom: 20px;
         gap: 2%;
         min-height: 300px;
+    }
+
+    .btn-add {
+        position: absolute;
+        bottom: 20px;
+        right: 10px;
+        background-color: ${Color.One};
+        border: none;
+        color: #FFFFFF;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    @media only screen and (max-width: 750px){
+        width: 100%;
+
+        .con-edit {
+            width: 100%;
+        }
     }
 `

@@ -1,18 +1,23 @@
 import styled from "styled-components";
+import { Color } from "../../../../../../styles/color";
 
 export const CardProductStyle = styled.div.attrs(props => ({
     activeSelect: props.activeSelect || "rgba(173, 173, 173, 0.25)"
 }))`
-    background-color: #FFFFFF;
-    width: 15%;
-    height: 250px;
+    background-color: ${Color.Pricipal};
+    width: 100%;
+    height: auto;
     border: 1px solid ${props => props.activeSelect};
     border-radius: 3px;
-    margin-bottom: 20px;
     cursor: pointer;
 
+    &:hover {
+        transform: scale(1.1);
+        border: 1px solid ${Color.One};
+    }
+
     .con{
-        margin: 5px;
+        padding: 3px;
         height: 100%;
         justify-content: space-around;
     }
@@ -29,6 +34,7 @@ export const CardProductStyle = styled.div.attrs(props => ({
     .conimg img{
         width: 100%;
         height: 100%;
+        max-height: 250px;
     }
 
     .text-cat{
@@ -38,5 +44,7 @@ export const CardProductStyle = styled.div.attrs(props => ({
     .text-nam{
 
     }
+
+    
 
 `

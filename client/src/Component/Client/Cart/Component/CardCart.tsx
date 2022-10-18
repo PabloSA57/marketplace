@@ -18,8 +18,8 @@ const CardCart = ({product}: Prop) => {
     const [id, setId] = useState<number>(0);
     const {todoState, updateProductCart, deleteProductCart} = useContext(TodoContext);
     const {allproductsCart } = todoState;
+
     const handlerInputChange = (e : React.ChangeEvent<HTMLSelectElement>, id: number ) => {
-        
         const filter = allproductsCart?.filter(e  => e.id === id) as ProductInfo[];
         const newprecio =   parseFloat(filter[0]?.product.precio as string) * parseFloat(e.target.value);
 
@@ -27,7 +27,6 @@ const CardCart = ({product}: Prop) => {
     }
     
     useEffect(() => {
-      
         let sum = 0;
         sum = sum + parseFloat(product.product.precio as string);
 
@@ -73,7 +72,7 @@ const CardCart = ({product}: Prop) => {
                                     <option value="1.5">1-1/2</option>
                                     <option value="2">2</option>
                                 </select>
-                                kg
+                                <span>Kg</span>
                             </div>
                             : <div>
                                 <select name="cantidad" id="" onChange={(e) => handlerInputChange(e,product.id as number)}>
@@ -82,6 +81,7 @@ const CardCart = ({product}: Prop) => {
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
+                                    <span>/U</span>
                                 </select>
                             </div>    
                         }

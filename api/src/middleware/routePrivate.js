@@ -5,8 +5,6 @@ const routerPrivate = express.Router();
 
 routerPrivate.use((req, res, next) => {
     const token = req.headers['access-token'];
-    console.log(req.headers)
-	console.log("token", token)
     if (token) {
     jwt.verify(token, 'pepe', (err, decoded) => {      
         if (err) {

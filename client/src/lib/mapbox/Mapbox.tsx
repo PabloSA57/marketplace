@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { WrappertMap } from './style';
 
 const objMarket = [
     {
@@ -81,8 +82,8 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                 marker.current.setLngLat(lngLat).addTo(map.current as any);
             
                 // Info que va hacia el FORM NewPet
-                //formLat(coordinates.lat);
-                //formLng(coordinates.lng);
+                formLat(coordinates.lat);
+                formLng(coordinates.lng);
             });
         }
         
@@ -173,10 +174,8 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
     }
 
     return (
-        <div style={{width:"100%", height: '350px'}}>
-            
-        <div ref={mapContainer} className="map-container" />
-
-        </div>
+            <WrappertMap >
+                <div ref={mapContainer} className="map-container" />
+            </WrappertMap>
     )
 }

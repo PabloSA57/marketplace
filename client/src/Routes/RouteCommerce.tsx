@@ -22,31 +22,9 @@ interface Prop {
 
 const RouteCommerce = ({type}: Prop) => {
     console.log(type)
-    const {setCommerce,getOrder, setCurrentUser, todoState} = useContext(TodoContext);
-    const {mycommerce} = todoState;
     useAuth();
     useStore();
 
-
-    useEffect(() => {
-        //Notification
-        const _getOrder = async () => {
-
-            if(mycommerce?.id !== undefined){
-
-                try {
-                    const resp = await axios.get('http://localhost:3001/order/getOrder/' + mycommerce?.id)
-                    getOrder(resp.data)
-                    console.log(resp)
-                } catch (error) {
-                    console.log(error)
-                }
-            }
-            
-        }
-        _getOrder()
-    
-    }, [mycommerce])
     return (
         <>
         {type === "Comerciante" 

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-
+import { Color } from "../../../../../styles/color";
 
 export const HeaderStyle = styled.header`
     width:100%;
     height: 78px;
-    background-color: rgb(255, 255, 255);
+    background-color: ${Color.Pricipal};
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid grey;
@@ -42,11 +42,11 @@ export const HeaderStyle = styled.header`
     .coninput button{
         width: 50px;
         height: 31px;
-        background-color: #FFB531;
+        background-color: ${Color.One};
         border: none;
         border-radius: 0 2px 2px 0px;
         box-shadow: 5px 5px 5px 0px lightgray;
-        color: #FFFFFF;
+        color: ${Color.Pricipal};
         align-items: center;
         justify-content: center;
     }
@@ -66,7 +66,7 @@ export const HeaderStyle = styled.header`
         height: 10px;
         width: 10px;
         border-radius: 50%;
-        background-color: #FFB531;
+        background-color: ${Color.One};
         
     }
 
@@ -106,8 +106,8 @@ export const HeaderStyle = styled.header`
     }
 
     .btnlogin{
-        background-color: #FFB531;
-        color: #FFFFFF;
+        background-color: ${Color.One};
+        color: ${Color.Pricipal};
         
     }
 `

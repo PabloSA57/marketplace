@@ -5,7 +5,7 @@ export const CartStyle = styled.section`
     width: 70%;
     margin: auto;
     padding: 60px;
-    background-color: #ffffff;
+    background-color: ${Color.Pricipal};
     border: 0.01px solid #DADADA;
     margin-top: 20px;
     border-radius: 10px;

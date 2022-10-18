@@ -1,18 +1,16 @@
 import styled from "styled-components";
 
 export const  FooterStyle = styled.footer`
-    display: block;
+    display: flex;
+    align-items: center;
+    border-top: 0.5px solid black;
 
     .con-footer0 {
-        max-width: 1100px;
-        margin-top: 60px;
-        margin-bottom: 60px;
-        margin: 0 auto;
-
+        width: 70%;
+        padding: 1em;
     }
 
     .con-footer {
-        height: 100px;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -24,30 +22,17 @@ export const  FooterStyle = styled.footer`
     }
 
     .con-footer2 {
-        max-width: 100px;
-        height: 50px;
+        max-width: 4em;
     }
 
     .footer-logo {
-        width: 50px;
-        height: 50px;
+        width: 2em;
+        height: 2em;
     }
 
     @media (max-width: 700px) {
-        width: 100%;
-
-        .footer-logo {
-            width: 30px;
-            height: 30px;
-        }
-
-    
-
-        .con-footer1 p{
-            font-size: 12px;
-        }
-        .con-footer2 {
-            width: 50px;
+        .con-footer0 {
+            width: 90%;
         }
     }
 

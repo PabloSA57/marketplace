@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Color } from "../../../../../../styles/color.js";
 
 export const CardProductStyle = styled.div`
-    background-color: #FFFFFF;
-    width: 23%;
-    height: 300px;
+    background-color: ${Color.Pricipal};
+    width: 100%;
+    height: auto;
     border: 1px solid rgba(173, 173, 173, 0.25);
     border-radius: 3px;
     margin-bottom: 20px;
@@ -44,8 +44,8 @@ export const CardProductStyle = styled.div`
     }
 
     @media (max-width: 700px) {
-        height: 180px;
-        width: 45%;
+        height: auto;
+        width: 100%;
 
         .con2 button {
             width: 65px;

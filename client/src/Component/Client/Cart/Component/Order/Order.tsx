@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProductInfo } from '../../../../../Interface/Commerce';
 import { useSesionStorage } from '../../../../../hooks/useSesionStorage';
 import { OrderStyle } from './style';
 import logoOrder from '../../../../../media/order-creada-pendiente.png'
 import { useMepa } from '../../../../../hooks/useMepa';
-import { CancelOrder } from '../../../../../service/order';
 import { Spiner } from '../../../../General/Spiner/Spiner';
 import { Button } from '../../../../../styles/style.general';
+import { UpdateOrder } from '../../../../../service/order';
+import { TodoContext } from '../../../../../Context/Context';
 
 type State = 'aprovado' | 'pendiente' | 'cancelada' | 'cargando' | 'error'
 export const Order = () => {
+  const {todoState} = useContext(TodoContext)
+  const {socket} = todoState
   const {openMP} = useMepa()
   const {get} = useSesionStorage('order')
   const [order, setOrder] = useState(get()[0])
@@ -19,16 +22,21 @@ export const Order = () => {
     await openMP(order?.id)
   }
 
-  const cancelOrder = async () => {
+  const updateOrder = async (state: string) => {
     setState('cargando')
     try {
-      await CancelOrder(order.id)
-      setState('cancelada')
+      await UpdateOrder(order.id, state)
+      setState(state as State)
+      socket?.current.emit("sendNotification", {
+        sendId: '1234',
+        receiverId: "39464b5d-8e5a-4ede-8a15-22e892d23e6e",
+        infoNoti: state
+    });
       setTimeout(() => {
           window.location.reload()
       }, 2000)
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setState('error')
     }
     
@@ -107,7 +115,7 @@ export const Order = () => {
             height='35px'
             backgroundColor='#339f47' 
             colortext='#ffffff'
-            onClick={cancelOrder} 
+            onClick={() => updateOrder('Aprobada')} 
           >
             Aprobar
           </Button>
@@ -117,7 +125,7 @@ export const Order = () => {
               height='35px'
               backgroundColor='#ea451c' 
               colortext='#ffffff'
-              onClick={cancelOrder} 
+              onClick={() => updateOrder('Cancelada')} 
             >
               Cancelar
             </Button>

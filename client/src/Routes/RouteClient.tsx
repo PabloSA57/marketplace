@@ -1,9 +1,8 @@
 
-import { Suspense, lazy, useEffect, useContext } from "react";
+import { Suspense, lazy } from "react";
 import {Route, Routes,Navigate} from "react-router-dom";
-import { TodoContext } from "../Context/Context";
 import { useAuth } from "../hooks/useAuth";
-import { Authentication } from "../utils/authentication";
+import { ClientPage } from "../Pages/Client/ClientPage";
 
 const InicioPage = lazy(() => import('../Pages/Client/Inicio-Page'))
 const CartPage = lazy(() => import('../Pages/Client/Cart-Page'))
@@ -15,14 +14,16 @@ interface Prop {
 const RoutePrivateClient = ({type}: Prop) => {
     console.log(type)
     useAuth()
-    
     return (
         <>
         {type === "Cliente" 
         ?   <Suspense fallback={<div>Cargando...</div>}>
                 <Routes>
-                    <Route path='/' element={<InicioPage/>}/>
-                    <Route path='/cart' element={<CartPage />}/>
+                    <Route path='/' element={<ClientPage />}>
+                        <Route index element={<InicioPage/>}/>
+                        <Route path='/cart' element={<CartPage />}/>
+                    </Route>
+                    
                 </Routes>
                 
             </Suspense>

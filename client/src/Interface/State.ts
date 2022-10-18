@@ -26,4 +26,6 @@ export interface State {
     //Order
     orders: Order[]
     allorders: Order[]
+    //socket
+    socket: React.MutableRefObject<any> | null
 }

@@ -39,7 +39,7 @@ interface Prop {
 export const FormCart = ({open, handleClose, typePayment, productsCart, store, amount}: Prop) => {
     const {openMP} = useMepa();
     const {todoState} = useContext(TodoContext)
-    const {currentUser, LatLng, allproductsCart} = todoState;
+    const {currentUser, LatLng, allproductsCart, socket} = todoState;
     
     const {addOrder} = useSesionStorage('order')
     const [lng, setLng] = useState<number | null>(null)
@@ -68,9 +68,9 @@ export const FormCart = ({open, handleClose, typePayment, productsCart, store, a
             console.log(event.target.checked)
         };
     
-    const onSubmit: SubmitHandler<IFormValues> = (data) => {
+    const onSubmit: SubmitHandler<IFormValues> = async (data) => {
         console.log('onSubmit: ', data)
-       /* setStateOrder({aproved: false, error: false, loading: true})
+        setStateOrder({aproved: false, error: false, loading: true})
         const newObj = {direction: data.Direccion, number_phone: data.Telefono}
         const infoClient = {...newObj, lat, lng, id :currentUser?.id}
         const storeId = store?.id
@@ -82,11 +82,16 @@ export const FormCart = ({open, handleClose, typePayment, productsCart, store, a
                     console.log('aqui toy')
                     addOrder(res)
                     setStateOrder({aproved: true, error: false, loading: false})
+                    socket?.current.emit("sendNotification", {
+                        sendId: '1234',
+                        receiverId: "39464b5d-8e5a-4ede-8a15-22e892d23e6e",
+                        infoNoti: 'Pendiente'
+                    });
                 }
         } catch (error) {
             setStateOrder({aproved: false, error: true, loading: false})
             console.log(error)
-        }*/
+        }
     };
 
     return (
@@ -112,7 +117,7 @@ export const FormCart = ({open, handleClose, typePayment, productsCart, store, a
                             required
                             errors={errors.Telefono}
                             />
-
+ 
                         <Input 
                             type='textarea'
                             label='Descripcion'

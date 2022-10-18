@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
 export const  ConfigureStyle = styled.section` 
     width: 50%;
@@ -12,7 +13,7 @@ export const  ConfigureStyle = styled.section`
         align-items: center;
         width: 100%;
         height: 50px;
-        background-color: aliceblue;
+        background-color: ${Color.Pricipal};
         border-bottom: 1px solid grey;
         cursor: pointer;
     }

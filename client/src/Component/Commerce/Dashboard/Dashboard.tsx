@@ -8,6 +8,8 @@ import CardProduct from './component/CardProduct';
 import { DashboardStyle } from './style';
 import amountImg from '../../../media/amount.png'
 import soldImg from '../../../media/sold.png'
+import dashboardsvg from '../../../media/dashboardsvg.svg'
+import { CardPays } from './component/CardPays';
 
 type countAmountT = {
     count: number,
@@ -22,19 +24,15 @@ type bestProductI = {
 const Dashboard = () => {
     const {todoState} = useContext(TodoContext);
     const {currentUser, mycommerce} = todoState;
-    const [state, setState] = useState<string | null>('Ambos');
+    const [state, setState] = useState<string >('Ambos');
     const [countAmount, setCountAmount] = useState<countAmountT | null>(null)
     const [bestProduct, setBestProduct] = useState<bestProductI[] | []>([]);
-    console.log(currentUser)
-    console.log(bestProduct)
     
     useEffect(() => {
         ( async () => {
             if(mycommerce){
                 try {
                     const res = await countAndAmount(mycommerce?.id as number)
-                    console.log(res)
-                    
                     setCountAmount(res[0] as countAmountT)
                 } catch (error) {
                     console.log(error)
@@ -49,15 +47,14 @@ const Dashboard = () => {
     useEffect(() => {
         ( async () => {
             if(mycommerce){
-                   try {
+                try {
             const resp = await bestProductsStore(mycommerce?.id as number)
-            console.log(resp)
             setBestProduct(resp)
         } catch (error) {
             console.log(error)
         }
             }
-         })()
+        })()
     }, [mycommerce])
 
     return (
@@ -70,20 +67,29 @@ const Dashboard = () => {
                             : <div>Cargando...</div>    
                         }
                         </div>
-                    </div>
 
-                    <div>
-                        <div>Medios de pago: </div>
-                        {state === null ? <div>Loading</div> 
-                        : state === 'E' 
-                            ? <div> Efectivo</div> 
-                            : state === 'MP' 
-                                ? <div>Mercado Pago</div>
-                                : state === 'Ambos'
-                                    ? <div>Mp y Efectivo</div>
-                                    : <div></div>
-                    }
+                        <div className='svg-dash'>
+                            <img src={dashboardsvg} alt="" />
+                        </div>
+                    </div>
+                    
+                    <div className='con21'>
                         
+                        <div><h3 className='subtitulos-dh'>Medios de cobro</h3></div>
+                    <div className='con22'>
+                        <CardPays 
+                        type='ef' 
+                        state={state}
+                        title='Efectivo'
+                        />
+                        <CardPays 
+                        type='mp' 
+                        state={state}
+                        title='Mercado Pago'
+                        />
+                        
+                        
+                    </div>
                     </div>
 
                     <section className=''>

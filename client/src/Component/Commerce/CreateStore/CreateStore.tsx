@@ -57,22 +57,29 @@ const CreateStore = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setResponse({...response, loading: true})
-        const newStore = {
-            ...date,
-            photoStore: path,
-            lng,
-            lat,
-            type: "Comerciante"
-        }
 
-        console.log(newStore)
+        console.log(lat, lng)
+        if(lat && lng){
 
-        try {
-            const res = await createStore(newStore) ;
-
-            res?.status === 200 ? setResponse({...response, correct: true}) : setResponse({...response, error: true})
-        } catch (error) {
-            console.log(error)
+            const newStore = {
+                ...date,
+                photoStore: path,
+                lng,
+                lat,
+                type: "Comerciante"
+            }
+    
+            console.log(newStore)
+    
+            try {
+                const res = await createStore(newStore) ;
+    
+                res?.status === 200 ? setResponse({...response, correct: true}) : setResponse({...response, error: true})
+            } catch (error) {
+                console.log(error)
+            }
+        }else {
+            console.log('no hay lat ni lon')
         }
     }
 

@@ -1,19 +1,19 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
 export const  NotiStyle = styled.div` 
     width: 40%;
     height: 100vh;
     overflow: auto;
     gap: 10px;
-
+    color:${Color.Text};
     .filter {
-        width: 40%;
+        width: 100%;
     }
-    .con-filter {
+    .cont-filter {
         width: 100%;
         flex-direction: row;
-        justify-content:space-between ;
-
+        gap: 15px;
     }
 
     .select-input {
@@ -36,7 +36,6 @@ export const  NotiStyle = styled.div`
         transition: all 2.0s;
         padding: 0 2px;
         z-index: 1;
-        color: #b3b3b3;
 
     }
 

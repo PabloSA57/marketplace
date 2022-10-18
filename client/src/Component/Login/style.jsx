@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Color } from "../../styles/color";
 
 export const  LoginRegisterStyle = styled.div`
     width:100%;
-    background-color: #ffffff;
+    background-color: ${Color.Pricipal};
     border-radius:20px;
     align-items: center;
 
@@ -38,7 +39,7 @@ export const  LoginRegisterStyle = styled.div`
         height: 35px;
         border-radius: 10px;
         border: none;
-        background-color: orange;
+        background-color: ${Color.One};
 
     }
 

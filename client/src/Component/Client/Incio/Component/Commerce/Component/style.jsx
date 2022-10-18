@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Color } from "../../../../../../styles/color";
 
 export const CardCommerceStyle = styled.div.attrs(props => ({
     activeColor: props.activeColor || "rgba(173, 173, 173, 0.25)"
@@ -9,6 +10,7 @@ export const CardCommerceStyle = styled.div.attrs(props => ({
     border:1px solid ${props => props.activeColor};
     border-radius: 5px;
     cursor: pointer;
+    background-color: ${Color.Pricipal};
 
     .con{
     margin: 5px;

@@ -70,7 +70,6 @@ const Cart = () => {
                                 <Button 
                                     width='100%' 
                                     height='40px' 
-                                    backgroundColor='#1070e4' 
                                     colortext='#ffffff' 
                                     onClick={() => handleOpen('mp')}
                                 >
@@ -80,8 +79,7 @@ const Cart = () => {
 
                                 <Button 
                                     width='100%' 
-                                    height='40px' 
-                                    backgroundColor='#e48110' 
+                                    height='40px'
                                     colortext='#ffffff' 
                                     onClick={() => handleOpen('cash')}
                                 >

@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import { Color } from "../../../../../styles/color";
+
 
 export const PresentationStyle = styled.div`
-    background-color: #C5EAD9;
+    background-color: ${Color.Two};
     width: 100%;
     height: 450px;
     margin-top: 5px;
@@ -26,7 +28,7 @@ export const PresentationStyle = styled.div`
         font-size: 50px;
         font-weight: 500;
         line-height: 60px;
-        color: #253D4E
+        color: ${Color.Text}
     }
 
     @media (max-width: 414px) {

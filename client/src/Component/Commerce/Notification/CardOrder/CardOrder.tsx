@@ -3,8 +3,10 @@ import { Order } from '../../../../Interface/Commerce'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+
+import { FcApproval, FcClock, FcDisapprove } from "react-icons/fc";
 import { CardOrderStyle } from './style';
+import { BiTime } from 'react-icons/bi';
 interface Prop {
     orders: Order
 }
@@ -26,10 +28,22 @@ export const CardOrder = ({orders}: Prop) => {
                 <AccordionSummary
                     aria-controls='planella-content'
                     id='panelia-header'
-                    style={stateOrderStyle()}
                     className='head-card-noti'
                 >
-                    <Typography>{orders.state}</Typography>
+                    <div className='head-cont-noti'>
+                        <div className='icon-state'>
+                            <span>
+                                {orders.state === 'Aprobada' && <FcApproval />}
+                                {orders.state === 'Cancelada' && <FcDisapprove /> }
+                                {orders.state === 'Pendiente' && <FcClock/> }
+                            </span>
+                            <p>{orders.state}</p>
+                        </div>
+
+                        <div className='time-noti'>
+                            <span><BiTime /></span>
+                        </div>
+                    </div>
                 </AccordionSummary>
                     <AccordionDetails className='details'>
                         <div>

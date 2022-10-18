@@ -20,7 +20,7 @@ export const CartLogoStyle = styled.div`
         background-color: ${Color.One};
         align-items: center;
         justify-content: center;
-        color: #ffffff;
+        color: ${Color.Pricipal};
     }
 
     .lenght {

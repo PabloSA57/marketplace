@@ -28,11 +28,31 @@ type TodoAction =
     |{type: 'setHasStore', payload: boolean}
     |{type: 'getOrders', payload:Order[]}
     |{type: 'filterOrders', payload:string}
+    |{type: 'setSocket', payload:any}
+    |{type: 'filterNotification', payload:{state: string, fecha: string, pay: string}}
 
 
 export const todoReducer = (state: State, action: TodoAction): State => {
 
     switch (action.type){
+        case"filterNotification":
+        //completar
+        const allOrderss = state.allorders;
+        const filterOrder = action.payload;
+
+        console.log(allOrderss)
+
+        const ordersFilter = allOrderss.filter(e => e.state === filterOrder.state)
+
+        return {
+            ...state,
+            orders: ordersFilter
+        }
+        case "setSocket":
+            return {
+                ...state,
+                socket: action.payload
+            }
         case "setCurrentUser":
             return {
                 ...state,
@@ -198,18 +218,19 @@ export const todoReducer = (state: State, action: TodoAction): State => {
                 store_select: action.payload
             }
         case "getOrders":
+            
 
             return {
                 ...state,
                 allorders: action.payload,
-                orders: action.payload,
+                orders: action.payload.filter(e => e.state === 'Aprobada'),
                 
             }
         case "filterOrders":
-            const allorders = state.allorders;
+            const allorderss = state.allorders;
             const filter = action.payload
             console.log(filter)
-            const filterOrders = filter === "All"  ? allorders : allorders?.filter(e => e.state === filter);
+            const filterOrders = filter === "All"  ? allorderss : allorderss?.filter(e => e.state === filter);
             console.log(filterOrders)
             return {
                 ...state,

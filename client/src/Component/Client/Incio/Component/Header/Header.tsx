@@ -20,7 +20,7 @@ export default function Header() {
     return (
         <HeaderStyle>
             <div className='con'>
-                <div>Logo</div>
+                <div><a href="/inicio">Logo</a></div>
                 {widthPhone ? <div></div>
                 :<div className="coninput">
                 <input type='text' placeholder='Buscar Productos...'/>

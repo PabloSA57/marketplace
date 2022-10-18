@@ -41,7 +41,7 @@ const DeleteProduct = async (req, res) => {
             where: {id: req.params.id}
         });
 
-        res.send("listo");
+        res.json({message: 'El producto se elimino correctamente'})
     } catch (error) {
         res.send(error);
     }
@@ -51,7 +51,6 @@ const DeleteProduct = async (req, res) => {
 const getAllProductoToTienda = async (idStore) => {
     const store = await Store.findByPk(idStore);
     const products = await store.getProducts();
-    console.log(products)
     const idProducts= products.map(e => e.id);
     /*const newp = productos.map(e => {
         return {
@@ -141,7 +140,6 @@ const BestSellingProducts = async (req, res) => {
         const idOrders = await Order.findAll({where: {storeId, state: 'approved'}})
         
         const idOrdersToArray = idOrders.map(e => e.id);
-        console.log(idOrdersToArray)
         const numFromProduct = await Detailorder.findAll({
             where: {orderId: idOrdersToArray},
             include: [{

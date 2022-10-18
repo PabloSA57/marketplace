@@ -2,7 +2,6 @@ const { Order, Detailorder, User, Store, Product, Infoclient, conn} = require('.
 
 const GetOrderAux = (id, type) => {
 
-    console.log(type, id)
     const find = {  include: [
         {model:User,
         attributes: ['id','name', 'lastname', 'email']
@@ -31,22 +30,31 @@ const GetOrderAux = (id, type) => {
 
 const GetOrder = async (req, res) => {
     const {storeId}  = req.params;
-    console.log('order store id', storeId)
     if(storeId !== undefined){
-        console.log('en el if',storeId)
         try {
             const condition = GetOrderAux(storeId, "storeId")
-            const resp = await Order.findAll(condition)
+            const resp = await Order.findAll({...condition, order: [['id', 'DESC']]})
     
             res.send(resp)
         } catch (error) {
-            console.log('Order',error)
+            res.status(500).json({msg: error})
         }
     }
     
 }
 
-
+const CreateOrder = async (req, res) => {
+    
+    
+        try {
+            const orderCreated = await Order.findAll(req.body)
+    
+            res.send(orderCreated)
+        } catch (error) {
+            res.status(500).json({msg: error})
+        }
+    
+}
 //Count 
 const getOrderAproved = async (req, res) => {
     const {idStore} = req.params;
@@ -62,11 +70,13 @@ const getOrderAproved = async (req, res) => {
     }
 }
 
-const CancelOrder = async (req, res) => {
+const UpdateStateOrder = async (req, res) => {
     const {id} = req.params;
+    const {state} = req.body;
+
     try {
-        await Order.update({state: 'cancelada'}, {where:{id}})
-        res.json({message: 'Order canceled'})
+        await Order.update({state}, {where:{id}})
+        res.json({message: `Orden ${state}`})
     } catch (error) {
         res.send(error)
     }
@@ -94,6 +104,7 @@ const InfoSele = async (req, res) => {
 module.exports = {
     GetOrder,
     GetOrderAux,
-    CancelOrder,
-    InfoSele
+    UpdateStateOrder,
+    InfoSele,
+    CreateOrder
 }

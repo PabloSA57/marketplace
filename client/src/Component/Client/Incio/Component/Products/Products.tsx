@@ -7,7 +7,7 @@ import { ProductsStyle } from './style';
 import axios from 'axios';
 import { TodoContext } from '../../../../../Context/Context';
 import { CardProduct } from './Component/CardProduct';
-import { Text } from '../../../../../styles/style.general';
+import { Text, Wrapper } from '../../../../../styles/style.general';
 
 
     const arrTipo = ["All", 'Verduras', 'Frutas', 'Bebidas', 'Golosinas', 'Otros'];
@@ -70,10 +70,9 @@ import { Text } from '../../../../../styles/style.general';
 
                         </div>
                     </div>
-                    
-                <section className='contain'>
+                <Wrapper >
                     {productInfo.length > 0 ?productInfo?.map(p => <CardProduct product={p}/>) : <h2>No hay productos</h2>}
-                </section>
+                </Wrapper>
             </ProductsStyle>
         
     )

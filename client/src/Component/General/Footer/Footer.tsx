@@ -10,9 +10,7 @@ const Footer = () => {
             <FooterStyle>
                         <div className='con-footer0'>
                             <div className='con-footer'>
-                                <div className='con-footer1'>
                                     <p>@ 2022 Derechos reservados</p>
-                                </div>
 
                                 <div className='con-footer2'>
                                     <img src={mplogo} alt="" />

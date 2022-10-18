@@ -1,12 +1,14 @@
 import styled from "styled-components";
+import { Color } from "../../../styles/color";
 
-export const  NavStyle = styled.div`
-    background-color: #ffffff;
+export const  NavStyle = styled.nav`
+    background-color:  ${Color.Pricipal};
     width: 10%;
     height: 100vh;
     justify-content: center;
     align-items: center;
     border: 0.02px solid #c7c7c7;
+    
 
     .nav-items{
         gap: 100px;
@@ -17,14 +19,14 @@ export const  NavStyle = styled.div`
     }
 
     .active{
-        color: #cb8103;
+        color: ${Color.One};
     }
     a {
         margin: 0;
     }
 
     @media only screen and (max-width: 750px){
-        position: absolute;
+        
         bottom: 0;
         width: 100%;
         display: flex;
@@ -32,6 +34,7 @@ export const  NavStyle = styled.div`
         justify-content: space-around;
         height: 40px;
         z-index: 20;
+        position: fixed;
 
         .nav-items a {
             margin: 0;

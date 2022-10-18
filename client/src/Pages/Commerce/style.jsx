@@ -13,4 +13,9 @@ export const  CommercePStyle = styled.main`
         bottom: 50px;
         right: 10px;
     }
+
+    @media only screen and (max-width: 750px){
+        width: 95%;
+        
+    }
 ` 
