@@ -11,11 +11,12 @@ import { CommercePStyle } from './style';
 import  io  from "socket.io-client";
 import { CardNoti } from '../../Component/Commerce/Notification/NoficationAlert/CardNoti';
 import axios from 'axios';
+import { getOrders } from '../../service/order';
 
 //const socket = io("ws://localhost:3001/socket")
 
 const CommercePage = () => {
-    const {todoState, getOrder, filterNotication} = useContext(TodoContext)
+    const {todoState, setOrder, filterNotication} = useContext(TodoContext)
     const {widthPhone, currentUser, mycommerce} = todoState;
     //const [isConnected, setIsConnected] = useState(socket.connected);
     const [newNoti, setNewNoti] = useState('')
@@ -47,8 +48,8 @@ const CommercePage = () => {
                 if(mycommerce?.id !== undefined){
     
                     try {
-                        const resp = await axios.get('http://localhost:3001/order/getOrder/' + mycommerce?.id)
-                        getOrder(resp.data)
+                        const resp = await getOrders(mycommerce?.id, 'storeId')
+                        setOrder(resp)
                         console.log("resp orders :",resp)
                     } catch (error) {
                         console.log(error)

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Order } from '../../../../Interface/Commerce'
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -7,21 +7,16 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import { FcApproval, FcClock, FcDisapprove } from "react-icons/fc";
 import { CardOrderStyle } from './style';
 import { BiTime } from 'react-icons/bi';
+import { Mapbox } from '../../../../lib/mapbox/Mapbox';
+import { Link } from 'react-router-dom';
 interface Prop {
     orders: Order
 }
 
 export const CardOrder = ({orders}: Prop) => {
+    const [lat, setLat] = useState<number | null>(null)
+    const [lng, setLng] = useState<number | null>(null)
 
-    useCallback(() => {
-        stateOrderStyle()
-    }, [orders])
-
-    const stateOrderStyle = () => {
-        if(orders.state === 'approved') return {background: '#5B84EE', }
-        if(orders.state === 'pendiente') return {background: 'yellow'}
-        if(orders.state === 'cancelada') return {background: 'red'}
-    }
     return (
             <CardOrderStyle>
             <Accordion>
@@ -37,7 +32,7 @@ export const CardOrder = ({orders}: Prop) => {
                                 {orders.state === 'Cancelada' && <FcDisapprove /> }
                                 {orders.state === 'Pendiente' && <FcClock/> }
                             </span>
-                            <p>{orders.state}</p>
+                            <p>Codigo: {orders.id.slice(9,13)}</p>
                         </div>
 
                         <div className='time-noti'>
@@ -47,7 +42,28 @@ export const CardOrder = ({orders}: Prop) => {
                 </AccordionSummary>
                     <AccordionDetails className='details'>
                         <div>
-                            <h3>Productos</h3>
+                            <h4>Informacion de la orden</h4>
+
+                            <div className='info-order'>
+                                <div>
+                                    <p className='sub-title'>Estado</p>
+                                    <p className='datos'>{orders.state}</p>
+                                </div>
+
+                                <div>
+                                    <p className='sub-title'>Medio de pago</p>
+                                    <p className='datos'>{orders.type_payment}</p>
+                                </div>
+
+                                <div>
+                                    <p className='sub-title'>Entrega del producto</p>
+                                    <p className='datos'>Delivery</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4>Productos</h4>
                             {/*<table>
                                     <tr className='categoria-product'>
                                         <td>Nombre</td>
@@ -71,15 +87,15 @@ export const CardOrder = ({orders}: Prop) => {
 
                             <div className='info-table'>
                                 <div className='table-row'>
-                                    <span>Nombre</span>
+                                    <span className='sub-title'>Nombre</span>
                                 </div>
 
                                 <div className='table-row end'>
-                                    <span>Kg/Unidad</span>
+                                    <span className='sub-title'>Kg/Unidad</span>
                                 </div>
 
                                 <div className='table-row end'>
-                                    <span>Precio total</span>
+                                    <span className='sub-title'>Precio total</span>
                                 </div>
                             </div>
                             <div className='con-cardproduct'>
@@ -89,65 +105,73 @@ export const CardOrder = ({orders}: Prop) => {
                                         <div className='con-img'>
                                             <img className='img-product' src={e.product.imgurl} alt="" />
 
-                                            <h5>{e.product.name}</h5>
+                                            <p className='datos'>{e.product.name}</p>
                                         </div>
                                         
 
                                         <div className='unid'>
-                                            <span>
+                                            <p className='datos'>
                                                 {e.quantity} /
                                                 Unidades
-                                            </span>
+                                            </p>
                                         </div>
                                         
                                         <div className='precio'>
-                                            <span>
+                                            <p className='datos'>
                                                 $ {e.precio}
-                                            </span>
+                                            </p>
                                         </div>
                                         
                                     </div>
                                     
                                     ))}
                                     <div className='total'>
-                                        <h3>Total</h3>
+                                        <h4>Total</h4>
                                         <p>{orders?.amount}</p>
                                     </div>
                                 
                             </div>
                             
                         </div>
+
                         
                         <div>
-                        <h3>Info del cliente</h3>
+                            <h4>Info del cliente</h4>
+
                             <div className='info-table'>
                                 <div className='table-row'>
-                                    <span>Nombre</span>
+                                    <span className='sub-title'>Nombre</span>
                                 </div>
 
                                 <div className='table-row end'>
-                                    <span>Direccion</span>
+                                    <span className='sub-title'>Direccion</span>
                                 </div>
 
                                 <div className='table-row end'>
-                                    <span>Telefono</span>
+                                    <span className='sub-title'>Telefono</span>
                                 </div>
 
                             </div>
 
                             <div className='info-table'>
                                 <div className='table-row'>
-                                    <span className='data-table'>{orders.user.name} {orders.user.lastname}</span>
+                                    <span className='datos'>{orders.user.name} {orders.user.lastname}</span>
                                 </div>
 
                                 <div className='table-row '>
-                                    <span className='data-table'>B san expedito m j l1</span>
+                                    <span className='datos'>B san expedito m j l1</span>
                                 </div>
 
                                 <div className='table-row'>
-                                    <span className='data-table'>+5903816209629</span>
+                                    <span className='datos'>+5903816209629</span>
                                 </div>
 
+                            </div>
+                            <div>
+                                <Link to={`/commerce/detailorder/${orders.id}`}>
+                                <span className='link-envio'>Informacion del envio</span>
+                                
+                                </Link>
                             </div>
                         </div>
                     </AccordionDetails>

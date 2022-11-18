@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import img from '../media/login1.jpg';
+import { Color } from "../styles/color";
 
 export const  RegisterLoginStyle = styled.main`
-    
+        color: ${Color.Text}; 
     .con {
         position: relative;
         overflow: hidden;
         width: 100%;
         min-height: 100vh;
-        background-color: #ffffff;
+        background-color: #c8c8c8;
     }
 
     .img-rl {
@@ -26,7 +27,7 @@ export const  RegisterLoginStyle = styled.main`
         position: relative;
         width: 100%;
         margin: 0 auto;
-        color: #4a4a4a;
+        min-height: 100vh;
     }
 
     .con11 {
@@ -56,7 +57,8 @@ export const  RegisterLoginStyle = styled.main`
         flex-direction: row;
         width: 70%;
         margin: auto;
-        height: 100vh;
+        
+        justify-content: center;
     }
 
     .con123 {
@@ -70,9 +72,15 @@ export const  RegisterLoginStyle = styled.main`
         height: auto;
     }
 
+    .con124 h2 {
+        font-size:2em;
+    }
+
     .con124-form{
         width: 50%;
+        max-width: 500px;
         justify-content: center;
+        margin-bottom: 40px;
     }
 
     .con0 {
@@ -80,23 +88,24 @@ export const  RegisterLoginStyle = styled.main`
     }
 
     .con01 {
-        padding-top: 60px;
-        padding-bottom: 60px;
+        padding-top: 4em;
+        padding-bottom: 4em;
         max-width: 1100px;
         margin: 0 auto;
        // background-color: #4a4a4a;
     }
 
     .con011 {
-        height: 170px;
-        background-color: #ffffff;
+        padding: 1em;
         flex-direction: row;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     .con011-card {
         height: 100%;
         width: 30%;
+        min-width: 150px;
         //background-color: #0d6fc4;
         flex-direction: row;
         justify-content: center;
@@ -106,20 +115,15 @@ export const  RegisterLoginStyle = styled.main`
     }
 
     .-card-img {
-        width: 52px;
-        height: 52px;
-    }
-
-    .-card-img img{
-        width: 50px;
-        height: 50px;
+        width: 3.3em;
+        height: 3.3em;
     }
 
     .con-text {
         max-width:70%;
     }
     .-con-text1 {
-        font-size: 18px;
+        font-size: 1.2em;
         font-weight: 600;
         line-height: 22.5px;
         margin-bottom: 10px;
@@ -127,11 +131,36 @@ export const  RegisterLoginStyle = styled.main`
     }
 
     .-con-text2 {
-        font-size: 16px;
+        font-size: 1em;
         font-weight: 500;
         line-height: 20px;
         margin: 0;
         color: #ADADAD;
+    }
+
+    @media only screen and (max-width: 765px) {
+        .con12 {
+            width: 95%;
+        }
+
+        .con011 {
+            gap: 2em;
+        }
+        .con011-card {
+            width: 100%;
+        }
+        .con124-form {
+            width: 100%;
+        }
+    }
+
+    @media only screen and (min-width: 765px) and (max-width: 1023px) {
+        .con12 {
+            width: 80%;
+        }
+        .con124-form {
+            width: 100%;
+        }
     }
     
 ` 

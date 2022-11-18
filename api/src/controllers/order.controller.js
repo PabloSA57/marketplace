@@ -1,4 +1,4 @@
-const { Order, Detailorder, User, Store, Product, Infoclient, conn} = require('../db.js');
+const { Order, Detailorder, User, Store, Product, Infoclient, conn, Op} = require('../db.js');
 
 const GetOrderAux = (id, type) => {
 
@@ -23,20 +23,29 @@ const GetOrderAux = (id, type) => {
         }
     ],
     attributes: ['id', 'amount', 'state', 'date', 'type_payment']}
-    const condition = type === "storeId" ? {where: {storeId: id}, ...find} : {where: {id}, ...find} 
+    
+    let condition; 
+    if(type === "storeId") condition = {where: {storeId: id}, ...find}  
+    if(type === "id") condition = {where: {id}, ...find} 
+    if(type === "userId") condition = {where: {userId:id, state:{[Op.or]: ['Aprovada', 'Pendiente']}}, ...find} 
 
     return condition
 }
 
 const GetOrder = async (req, res) => {
-    const {storeId}  = req.params;
-    if(storeId !== undefined){
+    const {id, type}  = req.query;
+    if(id !== undefined){
         try {
-            const condition = GetOrderAux(storeId, "storeId")
+            let condition; 
+            if(type === 'storeId') condition = GetOrderAux(id, "storeId")
+            if(type === 'userId') condition = GetOrderAux(id, "userId")
+            if(type === 'id') condition = GetOrderAux(id, "id")
+            
             const resp = await Order.findAll({...condition, order: [['id', 'DESC']]})
-    
-            res.send(resp)
+            
+            res.json(resp)
         } catch (error) {
+            console.log(error)
             res.status(500).json({msg: error})
         }
     }

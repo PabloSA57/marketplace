@@ -6,8 +6,8 @@ export const  FormStoreStyle = styled.div`
     height: auto;
     justify-content: center;
     align-items: center;
-    background-color: ${Color.One};
-    padding: 25px;
+    background-color: ${Color.Pricipal};
+    padding: 15px;
     box-shadow: 5px 5px 5px 0px lightgray;
 
     .tit {
@@ -21,7 +21,7 @@ export const  FormStoreStyle = styled.div`
     }
     .form-store {
         display: flex;
-        gap: 10px;
+        gap: 2px;
         flex-direction: column;
         width: 100%;
     }
@@ -33,6 +33,17 @@ export const  FormStoreStyle = styled.div`
 
     .con-form {
         gap: 15px;
+    }
+
+    .con-map {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 1em;
+    }
+
+    .msg-map {
+        font-size: 0.8em;
+        color: #ffb700;
     }
     .btn-image {
         width: 100%;

@@ -1,8 +1,13 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useRef, useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useStore } from "../../../hooks/useStore";
+import { IFormValues } from "../../../Interface/Form";
 import { Mapbox } from "../../../lib/mapbox/Mapbox";
 import { createStore } from "../../../service/store";
+import { schemaRegisterStore } from "../../../utils/schemayup";
+import { Input } from "../../General/Input";
 import { FormStoreStyle } from "./style";
 
 interface Date {
@@ -24,7 +29,10 @@ const CreateStore = () => {
     const [response, setResponse] = useState({correct: false, error: false, loading: false});
     const inputImage = useRef<any>(null);
 
-    const {prueba} = useStore()
+    const { register, formState: { errors }, handleSubmit } = useForm<IFormValues>({
+        resolver: yupResolver(schemaRegisterStore)
+    });
+
 
     const changeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.files && e.target.files.length > 0){
@@ -54,7 +62,28 @@ const CreateStore = () => {
     }
 
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit: SubmitHandler<IFormValues> = async (data) => {
+        console.log(data)
+        console.log(lng, lat, 'latlng')
+        const {Nombre, Apellido, Nombre_Del_Kiosko, Contraseña, Direccion} = data;
+        const newStore = {
+            name: Nombre,
+            lastname: Apellido,
+            name_local: Nombre_Del_Kiosko,
+            password: Contraseña,
+            location: Direccion,
+            lat,
+            lng
+        }
+
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
+
+    /*const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setResponse({...response, loading: true})
 
@@ -81,72 +110,61 @@ const CreateStore = () => {
         }else {
             console.log('no hay lat ni lon')
         }
-    }
+    }*/
 
-    const submitPrueba = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault()
-        prueba()
-    }
 
     return(
             <FormStoreStyle>
-                <form action="" onSubmit={handleSubmit} className="form-store">
+                <form onSubmit={handleSubmit(onSubmit)} className="form-store">
                     <div className="tit">
                         <h2>Crear Tienda</h2>
                     </div>
                     
                     <div className="con-form">
-                        <div>
-                            <label htmlFor="">Nombre del local</label>
-                            <input 
-                            type="text" 
-                            name="name_local"
-                            value={date.name_local} 
-                            onChange={changeInput} className="inp" placeholder="Ej Los Sierras"/>
-                        </div>
+                                <Input 
+                                    type='text'
+                                    label='Nombre_Del_Kiosko'
+                                    register={register}
+                                    errors={errors.Nombre_Del_Kiosko}
+                                    required
+                                    placeholder='Los Sierras'
+                                />
 
-                        <label >Nombre</label>
-                            <input 
-                            type="text"
-                            value={date.name}
-                            name="name"  
-                            className="inp"
-                            onChange={changeInput} 
-                        />
+                                <Input 
+                                    type='text'
+                                    label='Nombre'
+                                    register={register}
+                                    errors={errors.Nombre}
+                                    required
+                                    placeholder='Juan'
+                                />
 
-                        <div>
-                            <label >Apellido</label>
-                                <input 
-                                type="text"
-                                name='lastname'
-                                value={date.lastname}  
-                                className="inp"
-                                onChange={changeInput} 
-                            />
-                        </div>
+                                <Input 
+                                        type='text'
+                                        label='Apellido'
+                                        register={register}
+                                        errors={errors.Apellido}
+                                        required
+                                        placeholder='Sierra'
+                                />
 
-                        <div>
-                            <label >Mail</label>
-                                <input 
-                                type="email"
-                                name="email"
-                                value={date.email}  
-                                className="inp"
-                                onChange={changeInput}
-                            />
-                        </div>
+                                <Input 
+                                    type='mail'
+                                    label='Email'
+                                    register={register}
+                                    errors={errors.Email}
+                                    required
+                                    placeholder='kiosko@gmail.com'
+                                />  
 
-                        <div>
-                            <label >Numero de telefono</label>
-                            <input 
-                            type="tel"
-                            name="number_phone"
-                            value={date.number_phone}
-                            placeholder="+549-XXX-XXXX-XXXX" 
-                            className="inp" 
-                            onChange={changeInput}
-                            />
-                        </div>
+                                <Input 
+                                    type='phone'
+                                    label='Telefono'
+                                    register={register}
+                                    errors={errors.Telefono}
+                                    required
+                                    placeholder='381XXXXXXX'
+                                />
                         
                             {/*<label htmlFor="">Foto de la tienda</label>
                             <div>
@@ -172,31 +190,32 @@ const CreateStore = () => {
                                 </div>*/}
 
                             <input type="file" name="image" onChange={changeFile} style={{display:"none"}} ref={inputImage} />
+                            <div className='con-map'>
+                                <Mapbox 
+                                formLat={setLat} 
+                                formLng={setLng}
+                                from='formcreate'
+                                />
 
-                            <Mapbox 
-                            formLat={setLat} 
-                            formLng={setLng}
-                            from='formcreate'
-                            />
-                            <div>
-                                <label htmlFor="">Ubicacion</label>
-                                <input 
-                                type="text" 
-                                className="inp"
-                                name='location'
-                                value={date.location}
-                                placeholder='Ej Tucuman-Yerba Buena' 
-                                onChange={changeInput}/>
+                                {lng === null && lat === null && <p className='msg-map'>Elige una direccion</p>}
                             </div>
+                            
+                            <Input 
+                                    type='text'
+                                    label='Direccion'
+                                    register={register}
+                                    errors={errors.Direccion}
+                                    required
+                                    placeholder='B san expedito mnz j lote 1'
+                                />
 
-                            <label >Password</label>
-                            <input 
-                            type="password"
-                            value={date.password}
-                            name="password"  
-                            className="inp"
-                            onChange={changeInput} 
-                        />
+                            <Input 
+                                    type='password'
+                                    label='Contraseña'
+                                    register={register}
+                                    errors={errors.Contraseña}
+                                    required
+                                />
                             {response.error && <div>Error al crear store</div>}                            
                             {response.loading ? <div>Cargando</div> : <button type="submit" className='btn-sb'>Crear tienda</button>}
                     </div>

@@ -2,16 +2,11 @@
 
 import React, { useState, useRef } from 'react'
 import { Path, UseFormRegister, FieldErrorsImpl, FieldError, ValidationRule} from "react-hook-form";
+import { IFormValues } from '../../Interface/Form';
 import { InputStyle } from './style.input';
 
 
 
-interface IFormValues {
-    Direccion?: string,
-    Telefono?: string,
-    Descripcion?: string,
-    Nombre?: string,
-}
 
 interface IFormValuesUpdateStore {
     Direccion?: string,
@@ -26,14 +21,16 @@ type InputProps = {
     pattern?: ValidationRule<RegExp>
     errors: FieldError | undefined
     type: string
-    valueInp?: string
+    valueInp?: string,
+    placeholder?: string,
 };
   // The following component is an example of your existing Input Component
-    export const Input = ({ label, register, required, errors, type,pattern, valueInp }: InputProps) => {
+    export const Input = ({ label, register, required, errors, type,pattern, valueInp, placeholder }: InputProps) => {
         const [value, setValue] = useState(valueInp)
-
+        //console.log(errors)
         const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             setValue(e.target.value)
+            console.log(e.target.value)
         }
 
         return (
@@ -46,8 +43,8 @@ type InputProps = {
                             type={type}
                             {...register(label, {required})}
                             className={errors !== undefined ? "inpactive inpgeneral" : "inp inpgeneral"}
-                            value={value}
-                            onChange={ handleChange}
+                            
+                            placeholder={placeholder}
                             />
                     }       
                 

@@ -28,4 +28,6 @@ export interface State {
     allorders: Order[]
     //socket
     socket: React.MutableRefObject<any> | null
+    //Drawer
+    stateDrawer: {noti: boolean, order: boolean}
 }

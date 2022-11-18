@@ -52,5 +52,7 @@ export interface Order {
     date: string;
     user: User;
     detailorders: DetailOrder[];
-    infoclient: InfoCLient
+    infoclient: InfoCLient;
+    store: Commerce;
+    type_payment: string
 }

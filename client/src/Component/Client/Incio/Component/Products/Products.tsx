@@ -4,10 +4,12 @@ import { ProductsStyle } from './style';
 
 
 
+
 import axios from 'axios';
 import { TodoContext } from '../../../../../Context/Context';
 import { CardProduct } from './Component/CardProduct';
 import { Text, Wrapper } from '../../../../../styles/style.general';
+import { API_BASE_URL } from '../../../../../config/config';
 
 
     const arrTipo = ["All", 'Verduras', 'Frutas', 'Bebidas', 'Golosinas', 'Otros'];
@@ -27,7 +29,7 @@ import { Text, Wrapper } from '../../../../../styles/style.general';
             if(store_select){
                 const getProductStore = async () => {
                     try {
-                        const product = await axios.get('http://localhost:3001/product-store/getproductstore/' + store_select);
+                        const product = await axios.get(`${API_BASE_URL}/product-store/getproductstore/${store_select}` );
                         console.log(product);
                         getProductos(product.data)
                     } catch (error) {

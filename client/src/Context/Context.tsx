@@ -27,14 +27,16 @@ export type TodoContextProps = {
     updateProductCart: (obj: {id: number, newprecio: number}) => void;
     deleteProductCart: (id: number) => void;
     //Notification
-    filterNotication: (obj: {state: string, fecha: string, pay: string}) => void;
+    filterNotication: (obj: {state?: string, fecha?: string, pay?: string}) => void;
     setCommerce: (c: Commerce) => void;
     setHasStore : (b: boolean) => void;
     //Orders
-    getOrder: (o: Order[]) => void;
+    setOrder: (o: Order[]) => void;
     filterOrders: (f: string) => void;
     //setsocket
     setSocket: (socket: any) => void;
+    //Drawer
+    setStateDrawer: ({noti, order}: {noti:boolean, order:boolean}) => void;
 }
 
 export const 

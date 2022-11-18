@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react'
 import { storeOrder } from '../../adapter/cart.adapter'
 import Cart from '../../Component/Client/Cart/Cart'
 import Header from '../../Component/Client/Incio/Component/Header/Header'
+import Order from '../../Component/Client/Incio/Component/Order/Order'
 import Footer from '../../Component/General/Footer/Footer'
 import { TodoContext } from '../../Context/Context'
 import { useSesionStorage } from '../../hooks/useSesionStorage'
@@ -37,11 +38,11 @@ const CartPage = () => {
     }, [])
     
     return (
-        <div style={{height: '100vh'}}>
-            <Header />
-            <Cart />
-            <Footer />
-        </div>
+        <>
+                <Cart />
+
+                <Order />
+        </>
     )
 }
 

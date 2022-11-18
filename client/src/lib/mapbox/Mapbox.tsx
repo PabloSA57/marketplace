@@ -42,7 +42,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
     const [zoom, setZoom] = useState(3);
     const [locationUpdate, setlocationUpdate] = useState(false);
     const [markerLat, setMarkerLat] = useState(-26.798227134886616);
-    const [markerLng, setMarkerLng] = useState(-65.26133808868217);
+    const [markerLng, setMarkerLng] = useState(-65.26133808868300);
 
     const marker = useRef<any>(null);
     
@@ -66,7 +66,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
         });
     }, [locationUpdate]);
     
-    useEffect(() => {
+        useEffect(() => {
         if(from === "formcreate"){
             map.current.on("click", (e: any) => {
                 let coordinates = e.lngLat;
@@ -92,11 +92,13 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
         useEffect(() => {
             if(from === 'formcart'){
             map.current.on("load", () => {
-                console.log('load map')
-                const lngLat= LngLatClient !== undefined && LngLatClient.length > 1 ? LngLatClient : [markerLng, markerLat];
+                const lngLat= 
+                    LngLatClient !== undefined 
+                    && LngLatClient.length > 1 
+                    ? LngLatClient 
+                    : [markerLng, markerLat];
     
-                //marker?.current?.remove();
-                console.log(Boolean(LngLatClient), LngLatClient)
+                marker?.current?.remove();
                 formLat(markerLat)
                 formLng(markerLng)
                     
@@ -109,31 +111,35 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                                 .addTo(map.current as any);
     
                                 const  onDragEnd = () => {
-                                    const lngLat = market1.getLngLat();
+                                    const lngLatget = market1.getLngLat();
                                     
-                                    console.log(lngLat.lng, lngLat.lat)
-                                    formLat(lngLat.lat)
-                                    formLng(lngLat.lng)
+                                    formLat(lngLatget.lat)
+                                    formLng(lngLatget.lng)
                                     }
                                     market1.on('dragend', onDragEnd);
-                                    
-                                    console.log(LngLatStore)
 
-                                    const market2 = new mapboxgl.Marker()
-                                        .setLngLat(LngLatStore)
-                                        .addTo(map.current as any);
+                                        
                         
                     }
 
-                    /*const market2 = new mapboxgl.Marker()
-                        .setLngLat([-65.27133808868217,-26.755817134886617])
-                        .addTo(map.current as any);*/
+                    const el = document.createElement('div');
+                    const width = '30px';
+                    const height = '25px';
+                    el.className ='marker'
+                    el.style.width = width
+                    el.style.height = height;
+                    el.style.borderRadius = '5px'
+                    el.style.backgroundImage = 'url(https://images.pexels.com/photos/375889/pexels-photo-375889.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)';
+                    el.style.backgroundSize = '100%'
+                    const market2 = new mapboxgl.Marker(el)
+                        .setLngLat(LngLatStore as [number, number])
+                        .addTo(map.current as any);
 
                     
             })}
         }, [])
 
-        useEffect(() => {
+        /*useEffect(() => {
             if('updateStore'){
                 console.log(LngLatStore)
                 map.current.on("load", () => { 
@@ -154,9 +160,9 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
                             market1.on('dragend', onDragEnd);
                 })
             }
-        }, [])
+        }, [])*/
 
-    const myLocation = () => {
+    /*const myLocation = () => {
         if("geolocation" in navigator){
                 navigator.geolocation.getCurrentPosition((position) => {
 
@@ -171,7 +177,7 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
         }else {
             console.log("no hay geolacation")
         }
-    }
+    }*/
 
     return (
             <WrappertMap >

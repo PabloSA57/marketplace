@@ -15,7 +15,7 @@ export const useSize = () => {
     }, [window.innerWidth])
 
     useEffect(() => {
-        if(width < 850 ){
+        if(width < 1023 ){
             changeWidth(true)
         }else{
             changeWidth(false)

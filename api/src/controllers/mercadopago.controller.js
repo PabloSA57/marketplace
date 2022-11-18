@@ -53,19 +53,14 @@ const PostCode = async (req, res) => {
     }
 }
 
-let otrafuncion = (socket) => (msg) => {
-    socket.on('Saludo', msg)
-}
-let functionSocket = (socket) => () => {return socket}
-
 const Checkout = async (req, res) => {
     const {products, storeId, amount, infoClient, typePayment, delivery} = req.body;
 
-    console.log(delivery, storeId)
+    console.log(delivery, storeId, typePayment)
     const {id:idclient,lng:lon, ...restClient} = infoClient;
     const objOrder = {storeId, amount, type_payment:typePayment, state: 'Pendiente', userId: idclient, delivery }
 
-    if(typePayment === "cash"){
+    if(typePayment === "ef"){
 
         try {
             const createOrder = await Order.create({
@@ -88,7 +83,6 @@ const Checkout = async (req, res) => {
 
             const condition = GetOrderAux(createOrder.id, "id")
             const resp = await Order.findAll(condition)
-            otrafuncion(functionSocket(), 'hola')
             res.json(resp)
         } catch (error) {
             console.log(error)
@@ -140,9 +134,7 @@ const Checkout = async (req, res) => {
             )
 
             const {id, items } =  response.data;
-            console.log(response.data.id)
 
-            
             const createOrder = await Order.create({
                     ...objOrder,
                     id: id,
@@ -159,14 +151,12 @@ const Checkout = async (req, res) => {
                     orderId: createOrder.id
                 }
             })
-
-            console.log(detailsOrder)
             
             await Detailorder.bulkCreate(detailsOrder)
 
             const condition = GetOrderAux(createOrder.id, "id")
+
             const resp = await Order.findAll(condition)
-            
             res.json(resp)
 
         } catch (error) {
@@ -191,7 +181,7 @@ const Notification = async (req, res) => {
         const resp = await axios.get(`https://api.mercadopago.com/v1/payments/${payment_id}`)
 
         console.log(resp)
-    }*/
+    }*/ 
 }
 
 const routePrueba = (req, res) => {
@@ -202,6 +192,5 @@ module.exports = {
     GetRedirect,
     PostCode,
     Checkout, 
-    Notification,
-    functionSocket
+    Notification
 }

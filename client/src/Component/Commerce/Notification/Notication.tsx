@@ -1,8 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react'
-import { CardOrder } from './CardOrder/CardOrder';
-import { NotiStyle } from './style';
+import {useContext, useEffect, useState} from 'react'
 import { TodoContext } from '../../../Context/Context';
 import { ChipFilter } from '../../../styles/style.general';
+import { CardOrder } from './CardOrder/CardOrder';
+import { NotiStyle } from './style';
+
+
 
 
 const stateNoti = ['Aprobada', 'Cancelada', 'Pendiente']

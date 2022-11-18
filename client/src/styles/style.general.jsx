@@ -28,7 +28,7 @@ export const ChipFilter = styled.button.attrs(props => ({
     border: none;
     cursor: pointer;
     min-width: 50px;
-
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
 `
 
 export const Button = styled.button.attrs(props => ({

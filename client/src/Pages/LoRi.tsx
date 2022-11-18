@@ -13,7 +13,7 @@ const LoRi = () => {
 
     console.log(location)
     return (
-        
+        <>
             <RegisterLoginStyle>
                     <section className='con'>
                         <div className='img-rl'></div>
@@ -38,17 +38,17 @@ const LoRi = () => {
                             <div className='con12'>
                                 {!widthPhone ? <div className='con123'>
                                     <div className="con124">
-                                        <h1>
-                                            Todo lo que buscas en un sitio
-                                        </h1>
-
                                         <h2>
-                                            Encuentre el producto de tu kiosko favorito
+                                            Todo lo que buscas en el día
                                         </h2>
+
+                                        <h3>
+                                            Encuentre el producto de tu kiosko favorito
+                                        </h3>
                                     </div>
                                 </div>
                                 : null    
-                            }
+                                }
 
                                 <div className='con124-form'>
                                     <Outlet />
@@ -105,10 +105,9 @@ const LoRi = () => {
                             </div>
                         </div>
                     </section>
-
-                    <Footer />
             </RegisterLoginStyle>
-            
+            <Footer />
+        </>
     )
 }
 

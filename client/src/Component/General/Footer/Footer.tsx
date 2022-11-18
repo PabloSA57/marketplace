@@ -10,7 +10,7 @@ const Footer = () => {
             <FooterStyle>
                         <div className='con-footer0'>
                             <div className='con-footer'>
-                                    <p>@ 2022 Derechos reservados</p>
+                                    <small>@ 2022 Derechos reservados</small>
 
                                 <div className='con-footer2'>
                                     <img src={mplogo} alt="" />

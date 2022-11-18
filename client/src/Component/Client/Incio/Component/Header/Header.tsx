@@ -7,8 +7,11 @@ import { IoCartOutline } from 'react-icons/io5';
 import { AiOutlineDown } from "react-icons/ai";
 import { GoSearch } from "react-icons/go";
 
-import Cart from "./Component/Cart";
+import Cart from "./Component/CartOrderNoti";
 import { TodoContext } from "../../../../../Context/Context";
+import CartOrderNoti from "./Component/CartOrderNoti";
+import { Avatar } from "@mui/material";
+import { AvatarComponent } from "./Component/Avatar";
 
 
 
@@ -31,9 +34,19 @@ export default function Header() {
                 </button>
             </div>
                 }
-                {true ? <Cart precio="20"/>
-                :<></>
-                }
+
+                <nav className="order-cart-noti">
+                    {true ? <CartOrderNoti type='cart'/>
+                    :<></>
+                    }
+                    {true ? <CartOrderNoti type='order'/>
+                    :<></>
+                    }
+
+                    <AvatarComponent name='Ruben' lastname="Sierra"/>
+                </nav>
+
+
 
                 {!true ? <div className='btnrorl'>
                     <button className='btnlogin'>Login</button>

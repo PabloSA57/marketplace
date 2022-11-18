@@ -4,13 +4,15 @@ import { Color } from "../../styles/color";
 export const  LoginRegisterStyle = styled.div`
     width:100%;
     background-color: ${Color.Pricipal};
-    border-radius:20px;
+    
     align-items: center;
+    padding: 1em;
 
     .con-lr{
         justify-content: center;
         align-items: center;
-        width: 90%;
+        width: 100%;
+        gap: 0.8em;
     }
 
     .con-lr form{
@@ -19,7 +21,7 @@ export const  LoginRegisterStyle = styled.div`
         width: 100%;
         align-items: center;
         justify-content: center;
-        gap:40px;
+        gap:3em;
     }
     .input-div {
         width: 100%;
@@ -33,15 +35,20 @@ export const  LoginRegisterStyle = styled.div`
     }
 
     .div-btn {
-        width: 120px;
+        width: 100%;
     }
     .div-btn button {
         height: 35px;
-        border-radius: 10px;
+        
         border: none;
         background-color: ${Color.One};
-
+        cursor: pointer;
     }
 
-    
+    .msg-error {
+        margin: 0.3em;
+        color: red;
+        text-align: center;
+    }
+
 ` 

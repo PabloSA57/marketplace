@@ -9,6 +9,7 @@ import { Button, Text } from '../../../styles/style.general';
 import { FormCart } from './FormCart';
 import { Commerce } from '../../../Interface/Commerce';
 import { useCart } from '../../../hooks/useCart';
+import ProcesOrder from './Component/ProcesOrder/ProcesOrder';
 
 
 
@@ -16,11 +17,12 @@ import { useCart } from '../../../hooks/useCart';
 const Cart = () => {
     const {active,total, handleStore} = useCart()    
     
-    const {todoState} = useContext(TodoContext);
+    const {todoState, setStateDrawer} = useContext(TodoContext);
     const {productsCart, storeCart, productCartStore} = todoState;
 
-
-    const [typePayment, setTypePayment] = useState<'mp' | 'cash' | null>(null)
+    console.log('active', active)
+    console.log(total)
+    /*const [typePayment, setTypePayment] = useState<'mp' | 'cash' | null>(null)
     const [open, setOpen] = useState(false);
     
     console.log(storeCart)
@@ -32,7 +34,7 @@ const Cart = () => {
     const handleClose = () => {
         setOpen(false)
         window.location.reload()
-    };
+    };*/
 
 
     return(
@@ -64,42 +66,36 @@ const Cart = () => {
 
                     <div className='con-pago'>
                         <div className='con-pago1'>
-                            <span>Total    $ {total}</span>
-
-                            <div className='con-btn2'>
-                                <Button 
-                                    width='100%' 
-                                    height='40px' 
-                                    colortext='#ffffff' 
-                                    onClick={() => handleOpen('mp')}
-                                >
-                                    Mercado pago
-                                </Button>
-                                
-
-                                <Button 
-                                    width='100%' 
-                                    height='40px'
-                                    colortext='#ffffff' 
-                                    onClick={() => handleOpen('cash')}
-                                >
-                                    Efectivo
-                                </Button>
+                            <div className='total'>
+                                <p className='text-total'>Total</p>
+                                <span className='text-total'>${total}</span>
                             </div>
                             
+                                <Button 
+                                    width='100%' 
+                                    height='2.5em' 
+                                    colortext='#ffffff' 
+                                    onClick={() => setStateDrawer({noti: false, order: true})}
+                                >
+                                    Procesar
+                                </Button>
+                        </div>
                     </div>
                 </div>
-                </div>
                 
-                <FormCart 
+               {/* <FormCart 
                     open={open} 
                     handleClose={handleClose}
                     typePayment={typePayment}
                     productsCart={productsCart}
                     amount={total}
                     store={active}
-                />
-
+                    />*/}
+            <ProcesOrder 
+                store={active }
+                amount={total}
+                productsCart={productsCart}
+            />
             
             </CartStyle>
     )

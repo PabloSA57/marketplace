@@ -4,27 +4,35 @@ import { Color } from "../../../styles/color";
 export const CartStyle = styled.section`
     width: 70%;
     margin: auto;
-    padding: 60px;
+    padding: 3em;
     background-color: ${Color.Pricipal};
     border: 0.01px solid #DADADA;
-    margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 5px 0px lightgray;
+    margin-top: 1.2em;
+    border-radius: 20px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.095);
 
     .con-pago {
-        margin-top: 30px;
+        margin-top: 1.8em;
         display: flex;
         flex-direction: row;
         justify-content: end;
     }
     .con-pago1 {
-        width: 100%;
+        width: 17em;
         align-items: flex-end;
-        gap: 10px;
+        gap: 0.8em;
     }
 
-    .con-pago1 span {
-        font-size: 22px;
+    .total {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .text-total {
+        font-size: 1.2em;
+        margin: 0;
         color: ${Color.Text}
     }
     

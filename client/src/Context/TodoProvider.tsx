@@ -27,7 +27,8 @@ const INITIAL_STATE: State = {
     LatLng: {lng: sessionStorage.getItem('lng') as number | null, lat: sessionStorage.getItem('lat') as number | null,},
     orders: [],
     allorders:[],
-    socket: null
+    socket: null,
+    stateDrawer: {noti: false, order: false}
 }
 
 interface props{ 
@@ -119,8 +120,8 @@ export const TodoProvider = ({children} : props) => {
     }
 
     //Order
-    const getOrder = (orders: Order[]) => {
-        dispatch({type:'getOrders', payload: orders})
+    const setOrder = (orders: Order[]) => {
+        dispatch({type:'setOrders', payload: orders})
     }
 
     const filterOrders = (f: string) => {
@@ -133,8 +134,13 @@ export const TodoProvider = ({children} : props) => {
     }
     
     //Notification
-    const filterNotication = (obj: {state: string, fecha: string, pay: string}) => {
+    const filterNotication = (obj: {state?: string, fecha?: string, pay?: string}) => {
         dispatch({type:'filterNotification', payload:obj})
+    }
+
+    //Drawer 
+    const setStateDrawer = (obj: {noti: boolean, order: boolean}) => {
+        dispatch({type:'setStateDrawer', payload:obj})
     }
 
     return (
@@ -160,10 +166,11 @@ export const TodoProvider = ({children} : props) => {
             selectStore,
             setCommerce,
             setHasStore,
-            getOrder,
+            setOrder,
             filterOrders,
             setSocket,
-            filterNotication
+            filterNotication,
+            setStateDrawer
         }}>
             {children}
         </TodoContext.Provider>

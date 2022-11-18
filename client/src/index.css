@@ -1,16 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Nova+Slim&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Lobster', cursive;
+  font-family: 'Nova Slim', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ebebeb;
+  min-height: 100vh;
 }
 
+#root {
+  min-height: 100vh;
+}
+h1,h2,h3,h4,h5,p {
+  margin: 0;
+  padding: 0;
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  
 }
 
 
@@ -25,6 +33,10 @@ article, div, footer, header, main, nav, section,span, figure{
   position: relative;
 }
 
+main {
+  flex: 1;
+}
+
 .map-container {
   height: 100%;
   border-radius: 10px;
@@ -32,4 +44,8 @@ article, div, footer, header, main, nav, section,span, figure{
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+@media only screen and (max-width: 765px) {
+  body {font-size: 12px}
 }

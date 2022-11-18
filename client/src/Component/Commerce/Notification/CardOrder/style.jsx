@@ -4,21 +4,13 @@ import { Color } from "../../../../styles/color";
 export const CardOrderStyle = styled.div` 
     .details {
         border-radius: 0 0 20px 20px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         color: ${Color.Text};
+        gap: 1em;
     }
 
-    .categoria-product {
-        background-color: #3f3fb0;
-    }
-
-    .categoria-product  td {
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .info-product {
-        background-color: orange;
+    .details  h4 {
+        font-size: 1.1em;
+        margin-bottom: 0.3em;
     }
 
     .img-name {
@@ -28,16 +20,16 @@ export const CardOrderStyle = styled.div`
 
     }
     .con-cardproduct {
-        gap: 5px;
+        gap: 0.5em;
     }
     .card-product-order {
-        padding: 3px;
+        padding: 0.3em;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
         border-radius:10px; 
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        height: 50px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.10);
+        height: 3.2em;
     }
     
     .head-card-noti {
@@ -67,6 +59,11 @@ export const CardOrderStyle = styled.div`
         margin: 0;
         color: ${Color.Text};
     }
+
+    .con-map {
+        width: 100%;
+        height: 300px;
+    }
     .info-table {
         
         flex-direction: row;
@@ -84,6 +81,13 @@ export const CardOrderStyle = styled.div`
     .data-table {
         font-size: 14px;
         
+    }
+    .sub-title {
+        font-size: 0.9em;
+        font-weight: 700;
+    }
+    .datos {
+        font-size: 0.8em;
     }
     .con-img {
         flex-direction: row;
@@ -110,6 +114,16 @@ export const CardOrderStyle = styled.div`
         width: 100%;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .info-order {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .link-envio {
+        
     }
 
     ` 

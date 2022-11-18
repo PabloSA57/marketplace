@@ -5,6 +5,11 @@ import { RegisterStyle } from './style';
 
 import axios from 'axios';
 import { LoginRegisterStyle } from '../Login/style';
+import { Input } from '../General/Input';
+import { useForm, SubmitHandler} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaFormCart, schemaRegister } from '../../utils/schemayup';
+import { IFormValues } from '../../Interface/Form';
 
 type HandlerInputChange = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 
@@ -20,12 +25,36 @@ const Register = () => {
         type: 'Cliente'
     })
 
+    const { register, formState: { errors }, handleSubmit } = useForm<IFormValues>({
+        resolver: yupResolver(schemaRegister)
+    });
+
+    
+
     console.log(input)
     function hadlerInput(e: HandlerInputChange ){
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
+    }
+
+    const onSubmit: SubmitHandler<IFormValues> = async (data) => {
+        console.log('onSubmit: ', data)
+        const obj = {
+            name: data.Nombre,
+            lastname: data.Apellido,
+            email: data.Email,
+            password: data.Contraseña
+        }
+
+        try {
+            const po =  await axios.post("http://localhost:3001/user/register", obj)
+            console.log(po)
+            navigate("/login")
+        } catch (error) {
+            console.error('Error de login: ', error)
+        }
     }
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,32 +89,54 @@ const Register = () => {
                         <h2>Register Cliente</h2>
                         </div>
                     
-                    <form action="" onSubmit={submit}>
-                        <div className='input-div'>
-                        
-                        <input type="text" name="name" value={input.name} onChange={hadlerInput} placeholder="Name"/>
-                        </div>
-                        
-                        <div className='input-div'>  
-                        <input type="text" name="lastname" value={input.lastname} onChange={hadlerInput}  placeholder="Last Name"/>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        {/*<input 
+                        type="text" 
+                        {...register('Nombre')}
 
-                        </div>
-                        
-                        <div className='input-div'>
-                        <input type="email" name="email" value={input.email} onChange={hadlerInput}  placeholder="Email"/>
+                        />
+    <p>{errors?.Nombre?.message}</p>*/}
+                                <Input 
+                                    type='text'
+                                    label='Nombre'
+                                    register={register}
+                                    errors={errors.Nombre}
+                                    required
+                                    placeholder='Juan'
+                                />
+        
+                                <Input 
+                                        type='text'
+                                        label='Apellido'
+                                        register={register}
+                                        errors={errors.Apellido}
+                                        required
+                                        placeholder='Juan'
+                                />
 
-                        </div>
-                        
-                        <div className='input-div'>    
-                            <input type="password" name="password" value={input.password} onChange={hadlerInput}  placeholder="Password"/>
-                        </div>
+                                <Input 
+                                    type='mail'
+                                    label='Email'
+                                    register={register}
+                                    errors={errors.Email}
+                                    required
+                                    placeholder='kiosko@gmail.com'
+                                />
 
-                        <div className='div-btn'>
-                            <button type="submit">Register</button>
-                        </div>
+                                <Input 
+                                    type='password'
+                                    label='Contraseña'
+                                    register={register}
+                                    errors={errors.Contraseña}
+                                    required
+                                />
+
+                            <div className='div-btn'>
+                                <button type="submit">Registrar</button>
+                            </div>
                     </form>
                     <div>
-                            <p>Ya tiene una cuenta? <Link to='/login'>Login</Link></p>
+                            <p>Ya tienes una cuenta? <Link to='/login'>Login</Link></p>
                         </div>
                     <div>
                     {

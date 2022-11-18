@@ -26,15 +26,23 @@ type TodoAction =
     |{type: 'selectStore', payload: number}
     |{type: 'setCommerce', payload: Commerce}
     |{type: 'setHasStore', payload: boolean}
-    |{type: 'getOrders', payload:Order[]}
+    |{type: 'setOrders', payload:Order[]}
     |{type: 'filterOrders', payload:string}
     |{type: 'setSocket', payload:any}
-    |{type: 'filterNotification', payload:{state: string, fecha: string, pay: string}}
+    |{type: 'filterNotification', payload:{state?: string, fecha?: string, pay?: string}}
+    |{type: 'setStateDrawer', payload:{noti: boolean, order: boolean}}
 
 
 export const todoReducer = (state: State, action: TodoAction): State => {
 
     switch (action.type){
+
+        case "setStateDrawer":
+            console.log(action.payload)
+            return {
+                ...state,
+                stateDrawer: action.payload
+            }
         case"filterNotification":
         //completar
         const allOrderss = state.allorders;
@@ -217,7 +225,7 @@ export const todoReducer = (state: State, action: TodoAction): State => {
                 ...state,
                 store_select: action.payload
             }
-        case "getOrders":
+        case "setOrders":
             
 
             return {

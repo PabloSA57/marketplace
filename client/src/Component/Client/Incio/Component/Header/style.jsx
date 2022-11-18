@@ -96,6 +96,11 @@ export const HeaderStyle = styled.header`
         gap: 8px;
     }
 
+    .order-cart-noti {
+        flex-direction: row;
+        gap: 1em;
+    }
+
     .btnrorl button{
         border: none;
         border-radius: 2px;
@@ -110,4 +115,6 @@ export const HeaderStyle = styled.header`
         color: ${Color.Pricipal};
         
     }
+
+    
 `

@@ -10,6 +10,7 @@ import { useStore } from "../hooks/useStore";
 import CommercePage from "../Pages/Commerce/Commerce-Page";
 import ConfigurePage from "../Pages/Commerce/Configure-Page";
 import DashboardPage from "../Pages/Commerce/Dashboard-Page";
+import DetailOrderPage from "../Pages/Commerce/DetailOrder-Page";
 import EditPage from "../Pages/Commerce/Edit-Page";
 import { hasStore } from "../service/store";
 import { Authentication } from "../utils/authentication";
@@ -38,10 +39,12 @@ const RouteCommerce = ({type}: Prop) => {
                     <Route index element={<Configure />} />
                     <Route path='perfil' element={<EditPerfil />} />
                 </Route>
-                
             </Route> 
+                <Route 
+                path="detailorder/:id" 
+                element={<DetailOrderPage />} />
         </Routes>
-            : <Navigate to='/home'/>
+            : <Navigate to='/login'/>
     }
             
         </>

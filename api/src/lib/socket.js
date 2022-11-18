@@ -6,6 +6,7 @@ const addUser = (userId, socketId) => {
 }
 
 const getUser = (userId) => {
+    console.log(users)
     return users.find(user => user.userId === userId);
 }
 
@@ -31,10 +32,12 @@ module.exports = (io) => {
         console.log(receiverId)
         console.log(infoNoti)
         const user = getUser(receiverId);
-        io.to(user.socketId).emit("getNotification", {
-            sendId,
-            infoNoti
-        })
+        if(user !== undefined){
+            io.to(user.socketId).emit("getNotification", {
+                sendId,
+                infoNoti
+            })
+        }
     })
 
     socket.on("disconnect", () => {

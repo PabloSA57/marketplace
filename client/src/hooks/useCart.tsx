@@ -6,7 +6,7 @@ export const useCart = () => {
     const {todoState, updateProductCart, selectStoreCart} = useContext(TodoContext);
     const {productsCart, storeCart, productCartStore} = todoState;
     const [total, setTotal] = useState(0);
-    const [active, setActive] = useState<Commerce | null>(null);
+    const [active, setActive] = useState<Commerce >(storeCart[0]);
 
     useEffect(() => {
         const totalHandler = () => {
