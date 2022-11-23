@@ -51,4 +51,9 @@ export const  LoginRegisterStyle = styled.div`
         text-align: center;
     }
 
+    .prueba-map {
+        width: 100%;
+        height: 100px;
+    }
+
 ` 

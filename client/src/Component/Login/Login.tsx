@@ -12,6 +12,7 @@ import { IFormValues } from '../../Interface/Form';
 import { schemaLogin } from '../../utils/schemayup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginService } from '../../service/auth';
+import MyMap from '../General/Map/Map';
 
 
 
@@ -116,6 +117,10 @@ const {loginAuth} = useContext(TodoContext);
     return (
                 <LoginRegisterStyle>
                     <div className='con-lr'>
+                        <div className='prueba-map'>
+                            <MyMap />
+
+                        </div>
                         <div>
                             <h2 className="">Login</h2>
                         </div>
