@@ -33,7 +33,7 @@ interface Prop {
     LngLatStore?: [number, number],
     LngLatClient?: [number,number] | []
 }
-mapboxgl.accessToken = process.env.REACT_APP_ACCESS_TOKEN_MAPBOX as string;
+mapboxgl.accessToken = "pk.eyJ1IjoicGFibG9zNTciLCJhIjoiY2w1ZnUyaDl1MTNtMjNqbnRwcWRtaDY2cCJ9.yhPZqGTzceXkygvQ_DWDAw";
 export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop) => {
     const mapContainer = useRef<any>(null);
     const map = useRef<any>(null);
