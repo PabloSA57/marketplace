@@ -33,7 +33,6 @@ interface Prop {
     LngLatStore?: [number, number],
     LngLatClient?: [number,number] | []
 }
-mapboxgl.accessToken = "pk.eyJ1IjoicGFibG9zNTciLCJhIjoiY2w1ZnUyaDl1MTNtMjNqbnRwcWRtaDY2cCJ9.yhPZqGTzceXkygvQ_DWDAw";
 export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop) => {
     const mapContainer = useRef<any>(null);
     const map = useRef<any>(null);
@@ -47,6 +46,8 @@ export const Mapbox = ({formLat, formLng, from, LngLatClient, LngLatStore}: Prop
     const marker = useRef<any>(null);
     
     useEffect(() => {
+        mapboxgl.accessToken = "pk.eyJ1IjoicGFibG9zNTciLCJhIjoiY2w1ZnUyaDl1MTNtMjNqbnRwcWRtaDY2cCJ9.yhPZqGTzceXkygvQ_DWDAw";
+        
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: "mapbox://styles/mapbox/streets-v11",
